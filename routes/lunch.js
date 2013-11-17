@@ -24,7 +24,7 @@ exports.post_lunch = function(req, res, next) {
 };
 
 exports.newlunch = function(req, res) {
-  res.render('newlunch', req.session.lunch);
+  res.render('lunches/edit', req.session.lunch);
 };
 
 exports.grouplunch = function(req, res) {
@@ -37,5 +37,5 @@ exports.grouplunch = function(req, res) {
     grouplunch.existing = req.session.order;
 
   console.log('sess', req.session)
-  res.render('grouplunch', grouplunch);
+  res.render('lunches/show', grouplunch);
 };

@@ -22,5 +22,5 @@ exports.post_order = function(req, res, next) {
 };
 
 exports.neworder = function(req, res) {
-  res.render('neworder', {lunch_id: req.params.lunch_id} );
+  res.render('orders/edit', {lunch_id: req.params.lunch_id} );
 };
