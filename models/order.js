@@ -34,3 +34,7 @@ Order.prototype.save = function(){
 Order.find = function(id) {
   return _.findWhere(orders, {id:id});  
 };
+
+Order.findForLunch = function(lunchId){
+	return _.where(orders, {lunch_id:lunchId})
+}
