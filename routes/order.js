@@ -12,7 +12,7 @@ exports.post_order = function(req, res, next) {
     item_number: item_number,
     name: name,
     price: price,
-    lunch_id: price
+    lunch_id: lunch_id
   });
 
   console.log('my order item', order);
