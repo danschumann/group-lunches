@@ -43,6 +43,6 @@ a {
     display: block
 }
 
-.inline {
+div.inline {
     float: left
 }
