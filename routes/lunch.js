@@ -13,7 +13,14 @@ exports.newlunch = function(req, res) {
 };
 
 exports.grouplunch = function(req, res) {
-  grouplunch = Lunch.find(parseInt(req.params.id));  
+
+  orders = [
+    {price: '1234', name: 'hi there'},
+    {price: '1234', name: 'hi there212321'}
+  ]
+  grouplunch = Lunch.find(parseInt(req.params.id));
+
+  grouplunch.orders = orders;
   res.render('grouplunch', grouplunch);
   console.log('grouplunch',grouplunch);
 };
