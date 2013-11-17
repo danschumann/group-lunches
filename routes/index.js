@@ -8,5 +8,5 @@ exports.index = function(req, res){
 };
 
 exports.newlunch = function(req, res) {
-  res.render('newlunch', { title: "title", lunchid: "newlunch" });
+  res.render('newlunch', { title: "title", id: "newlunch" });
 };
