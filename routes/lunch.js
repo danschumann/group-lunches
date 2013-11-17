@@ -15,6 +15,7 @@ exports.newlunch = function(req, res) {
 exports.grouplunch = function(req, res) {
 	grouplunch = Lunch.find(parseInt(req.params.id));  
 	res.render('grouplunch', grouplunch);
+	console.log('grouplunch',grouplunch);
 };
 
 exports.addorder = function(req, res) {

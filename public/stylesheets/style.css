@@ -15,5 +15,15 @@ a {
 }
 
 .contained {
-    max-width: 1000px
+  max-width: 1000px
+}
+
+
+.orderTable {
+  border: 1px solid black;
+  border-collapse:collapse;
+}
+
+.orderTable td,th{
+  border: 1px solid black;
 }
