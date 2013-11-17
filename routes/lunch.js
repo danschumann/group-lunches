@@ -15,7 +15,6 @@ var sanitize_url = function(teststring){
   return teststring;
 }
 
-
 exports.post_lunch = function(req, res, next) {
   lunch = new Lunch({title: req.body.title, menu_url: sanitize_url(req.body.menu_url)});
   console.log('my lunch', lunch)
@@ -33,5 +32,10 @@ exports.grouplunch = function(req, res) {
   orders = grouplunch.findOrders();
 
   grouplunch.orders = orders;
+
+  if ( req.params.id == req.session.order.lunch_id )
+    grouplunch.existing = req.session.order;
+
+  console.log('sess', req.session)
   res.render('grouplunch', grouplunch);
 };

@@ -22,4 +22,7 @@ block content
           td= order.price
     
   p
-    a(href="/grouplunch/#{attributes.id}/neworder") Add your order
+    - if (existing)
+      a(href="/grouplunch/#{attributes.id}/order/#{existing.id}") Edit your order
+    - else
+      a(href="/grouplunch/#{attributes.id}/neworder") Add your order
