@@ -19,7 +19,7 @@ exports.grouplunch = function(req, res) {
     {price: '1234', name: 'hi there212321'}
   ]
   
-  grouplunch = Lunch.find(parseInt(req.params.id));
+  grouplunch = Lunch.find(req.params.id);
   orders = grouplunch.findOrders();
 
   grouplunch.orders = orders;
