@@ -11,3 +11,7 @@ exports.post_lunch = function(req, res, next) {
 exports.newlunch = function(req, res) {
   res.render('newlunch', req.session.lunch);
 };
+
+exports.addorder = function(req, res) {
+  res.render('addorder', req.session.lunch);
+};
