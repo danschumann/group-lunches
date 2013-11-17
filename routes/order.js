@@ -17,9 +17,10 @@ exports.post_order = function(req, res, next) {
   console.log('my order item', order);
   req.session.order = order.attributes;
   order.save();
-  res.redirect('/lunch/' + lunch_id);
+  res.redirect('/grouplunch/' + lunch_id);
 };
 
 exports.neworder = function(req, res) {
   res.render('neworder', {lunch_id: req.params.lunch_id} );
+  console.log("lunch id", req.params.lunch_id)
 };
