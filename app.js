@@ -8,6 +8,7 @@ var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
 var lunch = require('./routes/lunch');
+var order = require('./routes/order');
 var http = require('http');
 var path = require('path');
 require('./models/lunches');
@@ -37,7 +38,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/newlunch', lunch.newlunch);
-app.get('/neworder', order.neworder);
+app.get('/neworder', order.post_order);
 app.post('/lunch', lunch.post_lunch);
 
 http.createServer(app).listen(app.get('port'), function(){
