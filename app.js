@@ -34,8 +34,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/newlunch', routes.newlunch);
 app.get('/users', user.list);
+app.get('/newlunch', lunch.newlunch);
 app.post('/lunch', lunch.post_lunch);
 
 http.createServer(app).listen(app.get('port'), function(){
