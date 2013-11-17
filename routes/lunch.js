@@ -12,10 +12,6 @@ exports.newlunch = function(req, res) {
   res.render('newlunch', req.session.lunch);
 };
 
-exports.addorder = function(req, res) {
-  res.render('addorder', req.session.lunch);
-};
-
 exports.post_addorder = function(req, res) {
   console.log('add order', req.body.myorder);
   res.redirect('/newlunch');

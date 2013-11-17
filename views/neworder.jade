@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1 Add Your Order
-    form(action='/neworder',method='post')
+    form(action='/post_order',method='post')
         fieldset(data-role='controlgroup')
             label(for='myorder')
                 input(type='hidden', name='lunchid', value="#{id}")
