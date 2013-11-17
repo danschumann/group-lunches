@@ -2,6 +2,7 @@ _ = require('underscore');
 
 exports.post_order = function(req, res, next) {
 
+  console.log('posting order', req.body);
   item_number = req.body.item_number;
   name = req.body.name;
   price = req.body.price;

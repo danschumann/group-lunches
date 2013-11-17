@@ -4,8 +4,14 @@ block content
   h1 Add Your Order
   form(action='/post_order',method='post')
     fieldset(data-role='controlgroup')
+<<<<<<< HEAD
       input(type='hidden', name='lunch_id', value="#{lunch_id}")
       input(id='name',type='text',value='',placeholder='ex: chicken sandwich',name='name')
       input(id='price',type='text',value='',placeholder='ex: 5.99',name='price')
+=======
+      input(type='hidden', name='lunch_id', value=lunch_id)
+      input(id='ordernum',type='text',value='',placeholder='Your order number.',name='ordernum')
+      input(id='myorder',type='text',value='',placeholder='Your order here.',name='order')
+>>>>>>> ecf23c5c5c5dc47f463c7c2a50b7821da9169b5b
       div(data-role='fieldcontain')
         input(type='submit',value='Add',data-transition='fade', data-theme='c')
