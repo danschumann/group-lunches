@@ -12,10 +12,23 @@ try{
   lunches = []
 }
 
+crypto = require('crypto')
+gen_id = function(){
+  return crypto.randomBytes(16).toString('hex')
+}
+
 GLOBAL.Lunch = function(attributes){
   if (!_.isObject(attributes))
     attributes = {}
-  attributes.id = attributes.id || lunches.length
+
+  if (!attributes.id){
+
+    id = gen_id();
+    while(_.findWhere({id: id}))
+      id = gen_id()
+    attributes.id = id
+  }
+
   this.attributes = attributes;
 };
 
