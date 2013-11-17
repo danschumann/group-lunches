@@ -1,7 +1,12 @@
 _ = require('underscore');
 fs = require('fs');
 // We just use a flat file since we don't expect a lot of traffic
-lunches = JSON.parse(fs.readFileSync('models/data/lunches.txt').toString());
+var lunches;
+try{
+  lunches = JSON.parse(fs.readFileSync('models/data/lunches.txt').toString());
+} catch(er){
+  lunches = []
+}
 
 GLOBAL.Lunch = function(attributes){
   if (!_.isObject(attributes))
