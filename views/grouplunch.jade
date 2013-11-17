@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  p Group Lunch: #{title}
+  p Group Lunch: #{attributes.title}
 
   - if ((orders || {}).length)
     table.orderTable
@@ -17,4 +17,4 @@ block content
           td= order.price
     
   p
-    a(href="/grouplunch/#{id}/neworder") Add your order
+    a(href="/grouplunch/#{attributes.id}/neworder") Add your order

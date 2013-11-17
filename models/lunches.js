@@ -21,7 +21,7 @@ GLOBAL.Lunch = function(attributes){
 
 Lunch.prototype.save = function(){
 
-  var existing = _.findWhere(lunches, {id: this.id});
+  var existing = _.findWhere(lunches, {id: this.attributes.id});
   if (existing) 
     _.extend(existing, this.attributes);
   else
@@ -32,10 +32,10 @@ Lunch.prototype.save = function(){
 };
 
 Lunch.find = function(id) {
-  return _.findWhere(lunches, {id:id});  
+  return new Lunch(_.findWhere(lunches, {id:id}));  
 };
 
 
 Lunch.prototype.findOrders = function(){
-	return _.where(Order.collection, {lunch_id:this.id});
+	return _.where(Order.collection, {lunch_id:this.attributes.id});
 }
