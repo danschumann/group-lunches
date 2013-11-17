@@ -4,6 +4,10 @@ block content
   h1= title
   p Lunch was Created!
   p Name: #{title}
+
+  p
+    span menu is located at
+    a(href=menu_url)= menu_url
   p
     Please email people this url: 
     a(href="/lunch/#{id}") http://localhost/lunch/#{id}

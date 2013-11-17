@@ -1,8 +1,9 @@
 _ = require('underscore');
 fs = require('fs');
-try{
-fs.mkdirSync('models/data');
-} catch(er){}
+
+// Ensure directory
+try{ fs.mkdirSync('models/data'); } catch(er){}
+
 // We just use a flat file since we don't expect a lot of traffic
 var lunches;
 try{
