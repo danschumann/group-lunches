@@ -1,7 +1,5 @@
 _ = require('underscore');
 
-require('./models/order.js');
-
 exports.post_order = function(req, res, next) {
 
   item_number = req.body.item_number;
