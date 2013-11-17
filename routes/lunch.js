@@ -11,3 +11,9 @@ exports.post_lunch = function(req, res, next) {
 exports.newlunch = function(req, res) {
   res.render('newlunch', req.session.lunch);
 };
+
+exports.grouplunch = function(req, res) {
+	grouplunch = Lunch.find(parseInt(req.params.id));  
+	res.render('grouplunch', grouplunch);
+	  
+};
