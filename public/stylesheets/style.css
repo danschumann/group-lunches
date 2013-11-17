@@ -18,7 +18,6 @@ a {
   max-width: 1000px
 }
 
-
 .orderTable {
   border: 1px solid black;
   border-collapse:collapse;
@@ -38,4 +37,8 @@ a {
 
 .order-form[name=price] {
   width: 90px
+}
+
+.block {
+    display: block
 }
