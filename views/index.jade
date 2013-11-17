@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1 Welcome to Group Lunches
+	form(action='/lunch',method='post')
+		fieldset(data-role='controlgroup')
+			label(for='title')
+				input(id='title',type='text',value='',placeholder='Restaurant name',name='title')
+		div(data-role='fieldcontain')
+			input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
