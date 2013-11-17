@@ -1,11 +1,10 @@
 extends layout
 
 block content
-	h1 Welcome to Group Lunches
-	form(action='/lunch',method='post')
-		fieldset(data-role='controlgroup')
-			label(for='title')
-				input(id='title',type='text',value='', placeholder='Restaurant name', name='title')
-				input(id='menu_url',type='text',value='', placeholder='http://www.dhabaindianbistro.com/lunch.html', name='menu_url')
-		div(data-role='fieldcontain')
-			input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
+  h1 Welcome to Group Lunches
+  form(action='/lunch',method='post')
+    fieldset(data-role='controlgroup')
+      input(id='title',type='text',value='', placeholder='Restaurant name', name='title')
+      input(id='menu_url',type='text',value='', placeholder='http://www.dhabaindianbistro.com/lunch.html', name='menu_url')
+    div(data-role='fieldcontain')
+      input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
