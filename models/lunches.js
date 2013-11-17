@@ -1,5 +1,9 @@
 _ = require('underscore');
 fs = require('fs');
+
+// Ensure directory
+try{ fs.mkdirSync('models/data'); } catch(er){}
+
 // We just use a flat file since we don't expect a lot of traffic
 var lunches;
 try{
@@ -30,8 +34,3 @@ Lunch.prototype.save = function(){
 Lunch.find = function(id) {
   return _.findWhere(lunches, {id:id});  
 };
-
-lunch = new Lunch({food:'yes please', id: 123});
-lunch.save()
-found_lunch = Lunch.find(123);
-console.log(found_lunch);

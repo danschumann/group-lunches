@@ -3,6 +3,7 @@
  * Module dependencies.
  */
 
+GLOBAL.SERVER_HOST = 'localhost'
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
@@ -24,7 +25,7 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.bodyParser());
 app.use(express.cookieParser());
-app.use(express.session({secret:'asdfdsfajkfadsjf ksjdfkadsfasdfkjasldfjalsdfj'}));
+app.use(express.cookieSession({secret:'asdfdsfajkfadsjf ksjdfkadsfasdfkjasldfjalsdfj'}));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 

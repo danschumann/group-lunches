@@ -1,12 +1,12 @@
 extends layout
 
 block content
-	h1 Add Your Order
-	form(action='/addorder',method='post')
-		fieldset(data-role='controlgroup')
-			label(for='myorder')
+    h1 Add Your Order
+    form(action='/addorder',method='post')
+        fieldset(data-role='controlgroup')
+            label(for='myorder')
                 input(type='hidden', name='lunchid', value="#{id}")
                 input(id='ordernum',type='text',value='',placeholder='Your order number.',name='ordernum')
-				input(id='myorder',type='text',value='',placeholder='Your order here.',name='order')
-		div(data-role='fieldcontain')
-			input(type='submit',value='Add',data-transition='fade', data-theme='c')
+                input(id='myorder',type='text',value='',placeholder='Your order here.',name='order')
+            div(data-role='fieldcontain')
+                input(type='submit',value='Add',data-transition='fade', data-theme='c')

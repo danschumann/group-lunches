@@ -1,7 +1,7 @@
 _ = require('underscore');
 
 exports.post_lunch = function(req, res, next) {
-  lunch = new Lunch({title: req.body.title});
+  lunch = new Lunch({title: req.body.title, menu_url: req.body.menu_url});
   console.log('my lunch', lunch)
   req.session.lunch = lunch.attributes;
   lunch.save();
