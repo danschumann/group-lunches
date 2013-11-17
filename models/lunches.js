@@ -34,3 +34,8 @@ Lunch.prototype.save = function(){
 Lunch.find = function(id) {
   return _.findWhere(lunches, {id:id});  
 };
+
+
+Lunch.prototype.findOrders = function(){
+	return _.where(Order.collection, {lunch_id:this.id});
+}
