@@ -15,19 +15,19 @@ var sanitize_url = function(teststring){
   return teststring;
 }
 
-exports.post_lunch = function(req, res, next) {
+exports.create = function(req, res, next) {
   lunch = new Lunch({title: req.body.title, menu_url: sanitize_url(req.body.menu_url)});
   console.log('my lunch', lunch)
   req.session.lunch = lunch.attributes;
   lunch.save();
-  res.redirect('/newlunch');
+  res.redirect('/lunches/' + lunch.attributes.id);
 };
 
-exports.newlunch = function(req, res) {
+exports.new = function(req, res) {
   res.render('lunches/edit', req.session.lunch);
 };
 
-exports.grouplunch = function(req, res) {
+exports.show = function(req, res) {
   grouplunch = Lunch.find(req.params.id);
   orders = grouplunch.findOrders();
 

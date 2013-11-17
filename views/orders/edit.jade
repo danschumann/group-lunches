@@ -3,9 +3,8 @@ extends ../layout
 block content
   
   h1 Add Your Order
-  form(action='/post_order',method='post')
+  form(action='/lunches/#{lunch_id}/orders',method='post')
     fieldset(data-role='controlgroup')
-      input(type='hidden', name='lunch_id', value="#{lunch_id}")
       div.inline
         label.block(for='yourname') Your Name
         input.block(id='yourname', type='text', value='', size='32', placeholder='Shahrukh Kahn', name='yourname')

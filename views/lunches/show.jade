@@ -23,6 +23,6 @@ block content
     
   p
     - if (existing)
-      a(href="/grouplunch/#{attributes.id}/order/#{existing.id}") Edit your order
+      a(href="/lunches/#{attributes.id}/orders/#{existing.id}") Edit your order
     - else
-      a(href="/grouplunch/#{attributes.id}/neworder") Add your order
+      a(href="/lunches/#{attributes.id}/orders/new") Add your order
