@@ -14,8 +14,12 @@ exports.post_order = function(req, res, next) {
     lunch_id: price
   });
 
-  console.log('my order item', order)
+  console.log('my order item', order);
   req.session.order = order.attributes;
   order.save();
   res.redirect('/lunch/' + lunch_id);
+};
+
+exports.neworder = function(req, res) {
+  res.render('neworder', req.session.lunch);
 };
