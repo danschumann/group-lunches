@@ -1,7 +1,12 @@
 extends layout
 
-block content
-  p Group Lunch: #{attributes.title}
+block content 
+  - if (attributes.menu_url)
+    h1 Restaurant: 
+      a(href="#{attributes.menu_url}") #{attributes.title}
+  - else
+    h1 Restaurant: #{attributes.title}
+    
 
   - if ((orders || {}).length)
     table.orderTable
