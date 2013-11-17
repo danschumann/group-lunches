@@ -18,12 +18,3 @@ exports.grouplunch = function(req, res) {
 	console.log('grouplunch',grouplunch);
 };
 
-exports.addorder = function(req, res) {
-  res.render('addorder', req.session.lunch);
-};
-
-exports.post_addorder = function(req, res) {
-  console.log('add order', req.body.myorder);
-  res.redirect('/newlunch');
-  res.render('addorder', req.session.lunch);
-};
