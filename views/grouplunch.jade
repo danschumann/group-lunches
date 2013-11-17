@@ -3,15 +3,18 @@ extends layout
 block content
   p Group Lunch: #{title}
 
-  table.orderTable
-    thead
-      td Name
-      td Order
-      td Price
-    tr
-      td Mary
-      td Kung Po Chicken
-      td $7.99
+  - if ((orders || {}).length)
+    table.orderTable
+      thead
+        td Name
+        td Order
+        td Price
+      -for (var i = 0; i < orders.length; i++)
+        - order = orders[i]
+        tr
+          td= order.item_number
+          td= order.name
+          td= order.price
     
   p
-      a(href="/grouplunch/#{id}/neworder") Add your order
+    a(href="/grouplunch/#{id}/neworder") Add your order

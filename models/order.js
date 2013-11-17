@@ -19,6 +19,8 @@ GLOBAL.Order = function(attributes){
   this.attributes = attributes;
 };
 
+Order.collection = orders;
+
 Order.prototype.save = function(){
 
   var existing = _.findWhere(orders, {id: this.id});
@@ -34,7 +36,3 @@ Order.prototype.save = function(){
 Order.find = function(id) {
   return _.findWhere(orders, {id:id});  
 };
-
-Order.findForLunch = function(lunchId){
-	return _.where(orders, {lunch_id:lunchId})
-}
