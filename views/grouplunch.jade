@@ -1,5 +1,17 @@
 extends layout
 
-h1 this is the lunch page
+block content
+  p Group Lunch: #{title}
 
-h1= id
+  table.orderTable
+    thead
+      td Name
+      td Order
+      td Price
+    tr
+      td Mary
+      td Kung Po Chicken
+      td $7.99
+    
+  p
+      a(href="/grouplunch/#{id}/neworder") Add your order

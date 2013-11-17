@@ -12,6 +12,7 @@ var order = require('./routes/order');
 var http = require('http');
 var path = require('path');
 require('./models/lunches');
+require('./models/order');
 
 var app = express();
 
@@ -38,7 +39,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/newlunch', lunch.newlunch);
-app.get('/lunch/:lunch_id/neworder', order.neworder);
+app.get('/grouplunch/:lunch_id/neworder', order.neworder);
 app.post('/post_order', order.post_order);
 app.get('/grouplunch/:id', lunch.grouplunch);
 app.post('/lunch', lunch.post_lunch);
