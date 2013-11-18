@@ -4,8 +4,10 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    .header
-      h1.contained
-        a(href="/") Group Lunches
-    
-    block content
+    .page-wrapper
+      .header
+        img(src='/images/pacman.png')
+        h1
+          a(href="/") Group Lunches
+      .content
+        block content

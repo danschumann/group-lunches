@@ -7,20 +7,16 @@ block content
   - if (order)
     -console.log('no why', order)
     -url += '/' + order.id
-  form(action="#{url}",method='post')
+  form(action="#{url}", method='post', class='order-form')
     fieldset(data-role='controlgroup')
       input(type='hidden', name='lunch_id', value="#{lunch_id}")
-      div.inline
-        label.block(for='user') Your name
+      div.orderInput
         - user = ''
         - description = ''
         - if (order)
           - user = order.user
           - description = order.description
-        input.block(id='user', type='text', value='#{user}', size='32', placeholder='ex: Shahrukh Kahn', name='user')
-      div.inline
-        label.block(for='description') Order
-        input.block(id='description',type='text',value='#{description}',size='32',placeholder='ex: chicken sandwich',name='description')
+        input(id='user', type='text', value='#{user}', placeholder='name', name='user')
+        input(id='description', type='text',v alue='#{description}', placeholder='order', name='description')
       div(data-role='fieldcontain')
-        br
-        input(type='submit',value='Add',data-transition='fade', data-theme='c')
+        input(type='submit',value='Add',data-transition='fade', data-theme='c', class='button')

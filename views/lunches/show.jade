@@ -9,7 +9,7 @@ block content
     
 
   - if ((orders || {}).length)
-    table.orderTable
+    table.display-table
       thead
         th Order for
         th Order
@@ -21,9 +21,7 @@ block content
     
   p
     - if (existing)
-      div
-        a(href="/lunches/#{attributes.id}/orders/#{existing.id}") Edit your order
-      div
-        a(href="/lunches/#{attributes.id}/orders/new") Add new item order
+        a(href="/lunches/#{attributes.id}/orders/#{existing.id}", class='button') Edit order
+        a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
     - else
-      a(href="/lunches/#{attributes.id}/orders/new") Add your order
+      a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
