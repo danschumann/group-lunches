@@ -1,20 +1,14 @@
-
-/**
- * Module dependencies.
- */
-
 GLOBAL.SERVER_HOST = 'localhost'
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
-var lunch = require('./routes/lunch');
-var order = require('./routes/order');
 var http = require('http');
 var path = require('path');
+var app = express();
+
+// TODO: Use any database other than this
 require('./models/lunches');
 require('./models/order');
 
-var app = express();
+require('./lib/string_helper.js')
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -36,18 +30,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
 
-app.get('/lunches/new', lunch.new);
-app.post('/lunches', lunch.create);
-app.get('/lunches/:id', lunch.show);
+require('./config/routes')(app);
 
-app.get('/lunches/:lunch_id/orders/new', order.new);
-app.get('/lunches/:lunch_id/orders/:order_id', order.show);
-app.post('/lunches/:lunch_id/orders', order.create);
-app.post('/lunches/:lunch_id/orders/:order_id', order.update);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Lunch food orders serving on port: ' + app.get('port'));
 });
