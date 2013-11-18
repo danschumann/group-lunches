@@ -43,9 +43,25 @@ Order.prototype.save = function(){
   else
     orders.push(this.attributes);
 
-  fs.writeFileSync('models/data/orders.txt', JSON.stringify(orders));
+  Order.write_collection_to_disk()
 
 };
+
+Order.prototype.destroy = function(){
+
+  var index = orders.indexOf(this.attributes)
+  if ( index !== -1 ){
+
+    orders.splice(index, 1);
+    Order.write_collection_to_disk()
+
+  }
+
+};
+
+Order.write_collection_to_disk = function() {
+  fs.writeFileSync('models/data/orders.txt', JSON.stringify(orders));
+}
 
 Order.find = function(id) {
   var order = _.findWhere(orders, {id:id})

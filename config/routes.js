@@ -21,6 +21,11 @@ module.exports = function(app) {
     order.load_from_params,
     order.show);
 
+  app.get('/lunches/:lunch_id/orders/:order_id/delete',
+    lunch.load_from_params,
+    order.load_from_params,
+    order.destroy);
+
   app.post('/lunches/:lunch_id/orders',
     lunch.load_from_params,
     order.create);

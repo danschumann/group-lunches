@@ -50,6 +50,11 @@ _.extend(exports, {
     req.order.save()
 
     res.redirect('/lunches/' + req.lunch.attributes.id);
-  }
+  },
 
+  destroy: function(req, res) {
+
+    req.order.destroy()
+    res.redirect('/lunches/' + req.lunch.attributes.id);
+  }
 });
