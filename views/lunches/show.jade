@@ -1,5 +1,8 @@
 extends ../layout
 
+block head
+  -var title = attributes.title
+
 block content 
   - if (attributes.menu_url)
     h1 Restaurant: 
