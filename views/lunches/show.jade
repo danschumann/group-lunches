@@ -23,6 +23,9 @@ block content
     
   p
     - if (existing)
-      a(href="/lunches/#{attributes.id}/orders/#{existing.id}") Edit your order
+      div
+        a(href="/lunches/#{attributes.id}/orders/#{existing.id}") Edit your order
+      div
+        a(href="/lunches/#{attributes.id}/orders/new") Add new item order
     - else
       a(href="/lunches/#{attributes.id}/orders/new") Add your order
