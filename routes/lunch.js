@@ -36,6 +36,14 @@ _.extend(exports, {
 
     req.lunch.orders = req.lunch.findOrders();
 
+    // To copy from any domain
+    req.lunch.full_url = req.protocol + "://" + req.get('host') + req.url;
+
+    console.log(req.lunch.full_url);
+
+    if ( req.session.lunch && req.session.lunch.id == req.lunch.attributes.id )
+      req.lunch.owner = true;
+
     // TODO: Move order from session and make users
     if ( req.session.order && req.lunch.attributes.id == req.session.order.lunch_id )
       req.lunch.existing = req.session.order;

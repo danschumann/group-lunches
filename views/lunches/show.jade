@@ -21,10 +21,21 @@ block content
         tr
           td= order.user
           td= order.description
+  - else
+
+    p.empty_orders This is where the food goes when people put in orders.
+
     
   p
     - if (existing)
-        a(href="/lunches/#{attributes.id}/orders/#{existing.id}", class='button') Edit order
-        a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
+      a(href="/lunches/#{attributes.id}/orders/#{existing.id}", class='button') Edit order
+      a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
     - else
       a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
+
+  - if (owner)
+
+    div.copythis_section
+      span Feed people this url
+      input.copythis(value="#{full_url}")
+      script(src="/javascripts/copythis.js")
