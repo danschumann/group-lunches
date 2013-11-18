@@ -89,10 +89,11 @@ a:hover,a:active {
 	font-size: 170%;
 	text-decoration: none;
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	color:#eee;
 }
 
 .header a:hover,.header a:active {
-	color: #666;
+	color:#eee;
 }
 
 /* display table */
