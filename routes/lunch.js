@@ -34,7 +34,7 @@ exports.show = function(req, res) {
 
   lunch.orders = orders;
 
-  if ( req.params.id == req.session.order.lunch_id )
+  if ( req.session.order && req.params.id == req.session.order.lunch_id )
     lunch.existing = req.session.order;
 
   res.render('lunches/show', lunch);
