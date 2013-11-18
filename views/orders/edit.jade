@@ -15,12 +15,11 @@ block content
 
   h1 Add Your Order
 
-  form(action="#{url}", method='post', class='order-form')
-    fieldset(data-role='controlgroup')
+  hr
 
-      input(type='hidden', name='lunch_id', value="#{lunch_id}")
-      div.orderInput
-        input(id='user', type='text', value='#{user}', placeholder='name', name='user')
-        input(id='description', type='text', value='#{description}', placeholder='order', name='description')
-      div(data-role='fieldcontain')
-        input(type='submit',value='Add',data-transition='fade', data-theme='c', class='button')
+  form.skinny_form(action="#{url}", method='post')
+    input(type='hidden', name='lunch_id', value="#{lunch_id}")
+
+    input(id='user', type='text', value='#{user}', placeholder='name', name='user')
+    input(id='description', type='text', value='#{description}', placeholder='order', name='description')
+    input.floatright.button.bump_up(type='submit',value='Add')

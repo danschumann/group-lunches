@@ -4,9 +4,20 @@ block head
   -var title = "Group Lunches"
 
 block content
-  form(action='/lunches',method='post')
-    fieldset(data-role='controlgroup')
-      input(id='title',type='text',value='', placeholder='restaurant name', name='title')
-      input(id='menu_url',type='text',value='', placeholder='menu url', name='menu_url')
-    div(data-role='fieldcontain')
-      input(type='submit',value='Create',data-transition='fade', data-theme='c', class='button')
+
+  h1 You doin' lunch today?
+
+  hr
+
+  div.description
+    span We eat as a group alot but don't want to get spammed.
+    br
+    span This lunch system doesn't collect emails!
+
+  hr
+
+
+  form.skinny_form(action='/lunches',method='post')
+    input(id='title',type='text',value='', placeholder='restaurant name', name='title')
+    input(id='menu_url',type='text',value='', placeholder='menu url', name='menu_url')
+    input.floatright.button.bump_up(type='submit',value='Create')

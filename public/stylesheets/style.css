@@ -192,3 +192,30 @@ a.button {
   border: 1px solid #c1c2c9;
   margin: 20px 10px 10px;
 }
+
+.description {
+  color: #999;
+}
+
+.floatright {
+  float: right;
+  display: inline-block;
+}
+
+.centered_container {
+  text-align: center;
+}
+
+.centered {
+  margin: auto;
+  text-align: left;
+}
+
+.skinny_form {
+  max-width: 433px;
+}
+
+/* Did this hack instead of changing tab index*/
+.bump_up {
+  margin-top: -23px;
+}
