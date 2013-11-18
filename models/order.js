@@ -12,10 +12,23 @@ try{
   orders = []
 }
 
+crypto = require('crypto')
+gen_id = function(){
+  return crypto.randomBytes(16).toString('hex')
+}
+
 GLOBAL.Order = function(attributes){
   if (!_.isObject(attributes))
     attributes = {}
-  attributes.id = attributes.id || orders.length
+
+  if (!attributes.id){
+
+    id = gen_id();
+    while(_.findWhere(orders, {id: id}))
+      id = gen_id()
+    attributes.id = id
+  }
+
   this.attributes = attributes;
 };
 
