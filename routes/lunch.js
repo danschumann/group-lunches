@@ -16,6 +16,7 @@ var sanitize_url = function(teststring){
 }
 
 exports.create = function(req, res, next) {
+  lunch = null
   lunch = new Lunch({title: req.body.title, menu_url: sanitize_url(req.body.menu_url)});
   console.log('my lunch', lunch)
   req.session.lunch = lunch.attributes;
@@ -28,14 +29,15 @@ exports.new = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  grouplunch = Lunch.find(req.params.id);
-  orders = grouplunch.findOrders();
+  lunch = null
+  lunch = Lunch.find(req.params.id);
+  orders = lunch.findOrders();
 
-  grouplunch.orders = orders;
+  lunch.orders = orders;
 
   if ( req.params.id == req.session.order.lunch_id )
-    grouplunch.existing = req.session.order;
+    lunch.existing = req.session.order;
 
   console.log('sess', req.session)
-  res.render('lunches/show', grouplunch);
+  res.render('lunches/show', lunch);
 };
