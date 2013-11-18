@@ -12,12 +12,14 @@ try{
   lunches = []
 }
 
-crypto = require('crypto')
+var crypto = require('crypto')
 gen_id = function(){
   return crypto.randomBytes(16).toString('hex')
 }
 
 GLOBAL.Lunch = function(attributes){
+ var id;
+	
   if (!_.isObject(attributes))
     attributes = {}
 

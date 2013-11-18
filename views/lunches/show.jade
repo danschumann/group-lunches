@@ -3,7 +3,7 @@ extends ../layout
 block content 
   - if (attributes.menu_url)
     h1 Restaurant: 
-      a(href="#{attributes.menu_url}") #{attributes.title}
+      a(href="#{attributes.menu_url}" target="_blank") #{attributes.title}
   - else
     h1 Restaurant: #{attributes.title}
     

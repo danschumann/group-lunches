@@ -53,16 +53,7 @@ a {
 }
 
 /*styling for order form*/
-.order-form[name=item_number] {
-  width: 70px
-}
-
-.order-form[name=name] {
-  width: 300px
-}
-
-.order-form[name=price] {
-  width: 90px
+.order-form {
 }
 
 .block {

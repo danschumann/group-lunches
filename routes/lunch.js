@@ -8,6 +8,8 @@ if (!String.prototype.trim) {
 pattern = /^http(s)?:\/\//i;
 
 var sanitize_url = function(teststring){
+  if (!teststring) 
+    return;
   teststring = teststring.trim();
   if(teststring.search(pattern) == -1){
     teststring = 'http://' + teststring;

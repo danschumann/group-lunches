@@ -1,8 +1,8 @@
 _ = require('underscore');
 
 exports.create = function(req, res, next) {
-  order = null;
-
+  var user, description, lunch_id, order;
+  
   user = req.body.user;
   description = req.body.description;
   lunch_id = req.params.lunch_id;
@@ -21,13 +21,13 @@ exports.create = function(req, res, next) {
 };
 
 exports.new = function(req, res) {
-  order = null;
   console.log('does it noew');
   res.render('orders/edit', {lunch_id: req.params.lunch_id} );
 };
 
 exports.show = function(req, res) {
-  order = null;
+  var order;
+  
   order = Order.find(req.params.order_id);
 
   if (order.lunch_id !== req.params.lunch_id ) order = null;
@@ -37,7 +37,8 @@ exports.show = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  order = null;
+  var order;
+  
   order = Order.find(req.params.order_id);
   _.extend(order, _.pick(req.body, 'user', 'description'));
   (new Order(order)).save()
