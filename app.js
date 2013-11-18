@@ -38,11 +38,13 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/newlunch', lunch.newlunch);
-app.get('/grouplunch/:lunch_id/neworder', order.neworder);
-app.post('/post_order', order.post_order);
-app.get('/grouplunch/:id', lunch.grouplunch);
-app.post('/lunch', lunch.post_lunch);
+
+app.get('/lunches/new', lunch.new);
+app.post('/lunches', lunch.create);
+app.get('/lunches/:id', lunch.show);
+
+app.get('/lunches/:lunch_id/orders/new', order.new);
+app.post('/lunches/:lunch_id/orders', order.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

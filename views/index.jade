@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 Welcome to Group Lunches
-  form(action='/lunch',method='post')
+  form(action='/lunches',method='post')
     fieldset(data-role='controlgroup')
       input(id='title',type='text',value='', placeholder='Restaurant name', name='title')
       input(id='menu_url',type='text',value='', placeholder='http://www.dhabaindianbistro.com/lunch.html', name='menu_url')
