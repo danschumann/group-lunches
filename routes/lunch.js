@@ -4,8 +4,8 @@ _.extend(exports, {
 
   create: function(req, res, next) {
 
-    menu_url = ('' + req.body.menu_url).sanitize_url();
-    title = req.body.title;
+    var menu_url = ('' + req.body.menu_url).sanitize_url();
+    var title = req.body.title;
 
     var lunch = new Lunch({
       title: title,
