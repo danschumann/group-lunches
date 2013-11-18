@@ -48,5 +48,6 @@ Order.prototype.save = function(){
 };
 
 Order.find = function(id) {
-  return _.findWhere(orders, {id:id});  
+  var order = _.findWhere(orders, {id:id})
+  if (order) return new Order(order);  
 };

@@ -1,51 +1,55 @@
 _ = require('underscore');
 
-exports.create = function(req, res, next) {
-  var user, description, lunch_id, order;
-  
-  user = req.body.user;
-  description = req.body.description;
-  lunch_id = req.params.lunch_id;
+_.extend(exports, {
 
-  order = new Order({
-    user: user,
-    description: description,
-    lunch_id: lunch_id
-  });
-  order.save();
+  new: function(req, res) {
+    res.render('orders/edit', {lunch: req.lunch.attributes});
+  },
 
-  // TODO: Save users and remove this
-  req.session.order = order.attributes;
+  create: function(req, res, next) {
+    var user, description, lunch_id, order;
+    
+    user = req.body.user;
+    description = req.body.description;
+    lunch_id = req.params.lunch_id;
 
-  res.redirect('/lunches/' + lunch_id);
-};
+    order = new Order({
+      user: user,
+      description: description,
+      lunch_id: lunch_id
+    });
+    order.save();
 
-exports.new = function(req, res) {
-  lunch_id = req.params.lunch_id;
-  res.render('orders/edit', {lunch_id: lunch_id});
-};
+    // TODO: Save users and remove this
+    req.session.order = order.attributes;
 
-exports.show = function(req, res) {
-  var order;
-  
-  order = Order.find(req.params.order_id);
+    res.redirect('/lunches/' + lunch_id);
+  },
 
-  if (order.lunch_id !== req.params.lunch_id ) order = null;
+  load_from_params: function(req, res, next) {
 
-  lunch_id = req.params.lunch_id;
-  res.render('orders/edit', {lunch_id: lunch_id, order: order} );
-};
+    // Settings stuff to req.something is not persistant across requests
+    req.order = Order.find(req.params.order_id);
+    console.log('Loaded Order to req.order'.green, req.order);
 
-exports.update = function(req, res) {
-  var order;
-  
-  order = Order.find(req.params.order_id);
+    if(!req.order || req.order.attributes.lunch_id !== req.lunch.attributes.id)
+      res.render('error', {message: 'Could not find that order'});
+    else
+      next() // onto the real part
+  },
 
-  order.user = req.body.user;
+  show: function(req, res) {
+    res.render('orders/edit', {lunch: req.lunch.attributes, order: req.order.attributes});
+  },
 
-  order.description = req.body.description;
+  update: function(req, res) {
+    _.extend(req.order.attributes,
+        _.pick(req.body, 'user', 'description')
+    );
 
-  (new Order(order)).save()
+    req.order.save()
 
-  res.redirect('/lunches/' + req.params.lunch_id);
-};
+    res.redirect('/lunches/' + req.lunch.attributes.id);
+  }
+
+});

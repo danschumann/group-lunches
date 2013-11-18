@@ -1,32 +1,45 @@
 _ = require('underscore');
 
-exports.create = function(req, res, next) {
+_.extend(exports, {
 
-  menu_url = ('' + req.body.menu_url).sanitize_url();
-  title = req.body.title;
+  create: function(req, res, next) {
 
-  var lunch = new Lunch({
-    title: title,
-    menu_url: menu_url
-  });
-  lunch.save();
+    menu_url = ('' + req.body.menu_url).sanitize_url();
+    title = req.body.title;
 
-  // TODO: Don't remember lunch on session -- create users
-  req.session.lunch = lunch.attributes;
+    var lunch = new Lunch({
+      title: title,
+      menu_url: menu_url
+    });
+    lunch.save();
 
-  res.redirect('/lunches/' + lunch.attributes.id);
-};
+    // TODO: Don't remember lunch on session -- create users
+    req.session.lunch = lunch.attributes;
 
-exports.show = function(req, res) {
+    res.redirect('/lunches/' + lunch.attributes.id);
+  },
 
-  var lunch = Lunch.find(req.params.id);
+  // This gets put on lots of routes to load a lunch from params
+  load_from_params: function(req,res,next){
 
-  orders = lunch.findOrders();
+    // Settings stuff to req.something is not persistant across requests
+    req.lunch = Lunch.find(req.params.lunch_id);
+    console.log('Loaded Lunch to req.lunch'.green, req.lunch);
 
-  lunch.orders = orders;
+    if( !req.lunch )
+      res.render('error', {message: 'Could not find that lunch'});
+    else
+      next() // onto the real part
+  },
 
-  if ( req.session.order && req.params.id == req.session.order.lunch_id )
-    lunch.existing = req.session.order;
+  show: function(req, res) {
 
-  res.render('lunches/show', lunch);
-};
+    req.lunch.orders = req.lunch.findOrders();
+
+    // TODO: Move order from session and make users
+    if ( req.session.order && req.lunch.attributes.id == req.session.order.lunch_id )
+      req.lunch.existing = req.session.order;
+
+    res.render('lunches/show', req.lunch);
+  }
+});

@@ -47,7 +47,8 @@ Lunch.prototype.save = function(){
 };
 
 Lunch.find = function(id) {
-  return new Lunch(_.findWhere(lunches, {id:id}));  
+  var lunch = _.findWhere(lunches, {id:id})
+  if (lunch) return new Lunch(lunch);  
 };
 
 

@@ -2,20 +2,21 @@ extends ../layout
 
 block content
   
-  h1 Add Your Order
-  - url = '/lunches/' + lunch_id + '/orders'
+  - url = '/lunches/' + lunch.id + '/orders'
+  - user = ''
+  - description = ''
   - if (order)
-    -console.log('no why', order)
-    -url += '/' + order.id
+    - url += '/' + order.id
+    - user = order.user
+    - description = order.description
+
+  h1 Add Your Order
+
   form(action="#{url}", method='post', class='order-form')
     fieldset(data-role='controlgroup')
+
       input(type='hidden', name='lunch_id', value="#{lunch_id}")
       div.orderInput
-        - user = ''
-        - description = ''
-        - if (order)
-          - user = order.user
-          - description = order.description
         input(id='user', type='text', value='#{user}', placeholder='name', name='user')
         input(id='description', type='text',v alue='#{description}', placeholder='order', name='description')
       div(data-role='fieldcontain')
