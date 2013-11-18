@@ -11,15 +11,13 @@ block content
   - if ((orders || {}).length)
     table.orderTable
       thead
-        td Name
-        td Order
-        td Price
+        th Order for
+        th Order
       -for (var i = 0; i < orders.length; i++)
         - order = orders[i]
         tr
-          td= order.item_number
-          td= order.name
-          td= order.price
+          td= order.user
+          td= order.description
     
   p
     - if (existing)

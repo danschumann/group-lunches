@@ -2,15 +2,13 @@ _ = require('underscore');
 
 exports.post_order = function(req, res, next) {
 
-  item_number = req.body.item_number;
-  name = req.body.name;
-  price = req.body.price;
+  user = req.body.user;
+  description = req.body.description;
   lunch_id = req.body.lunch_id;
 
   order = new Order({
-    item_number: item_number,
-    name: name,
-    price: price,
+	user: user,
+    description: description,
     lunch_id: lunch_id
   });
 
