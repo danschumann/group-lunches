@@ -9,6 +9,7 @@ block content
     -url += '/' + order.id
   form(action="#{url}",method='post')
     fieldset(data-role='controlgroup')
+      input(type='hidden', name='lunch_id', value="#{lunch_id}")
       div.inline
         label.block(for='user') Your name
         - user = ''
