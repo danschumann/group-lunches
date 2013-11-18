@@ -18,22 +18,24 @@ block content
       thead
         th Order for
         th Order
+        th
+        th
       -for (var i = 0; i < orders.length; i++)
         - var order = orders[i]
         tr
           td= order.user
           td= order.description
+          td
+             a(href="/lunches/#{attributes.id}/orders/#{order.id}") Edit
+          td 
+             a(href="#") Delete
   - else
 
     p.empty_orders This is where the food goes when people put in orders.
 
     
   p
-    - if (existing)
-      a(href="/lunches/#{attributes.id}/orders/#{existing.id}", class='button') Edit order
-      a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
-    - else
-      a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
+    a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
 
   - if (owner)
 
