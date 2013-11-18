@@ -1,10 +1,11 @@
-group-lunches
+GROUP LUNCHES
 =============
 
-Website for ordering lunch as a group!!!
+Website for ordering lunch as a group.
 
+No databases needed. 
+*flat file
+*be careful
 
-Woot!
-
-
-HAH!
+It won't accept your email.
+*no spam
