@@ -12,17 +12,17 @@ exports.create = function(req, res, next) {
     description: description,
     lunch_id: lunch_id
   });
-
-  req.session.order = order.attributes;
-  console.log('doh session', req.session);
-
   order.save();
+
+  // TODO: Save users and remove this
+  req.session.order = order.attributes;
+
   res.redirect('/lunches/' + lunch_id);
 };
 
 exports.new = function(req, res) {
-  console.log('does it noew');
-  res.render('orders/edit', {lunch_id: req.params.lunch_id} );
+  lunch_id = req.params.lunch_id;
+  res.render('orders/edit', {lunch_id: lunch_id});
 };
 
 exports.show = function(req, res) {
@@ -32,17 +32,20 @@ exports.show = function(req, res) {
 
   if (order.lunch_id !== req.params.lunch_id ) order = null;
 
-  console.log('show order', order);
-  res.render('orders/edit', {lunch_id: req.params.lunch_id, order: order} );
+  lunch_id = req.params.lunch_id;
+  res.render('orders/edit', {lunch_id: lunch_id, order: order} );
 };
 
 exports.update = function(req, res) {
   var order;
   
   order = Order.find(req.params.order_id);
-  _.extend(order, _.pick(req.body, 'user', 'description'));
+
+  order.user = req.body.user;
+
+  order.description = req.body.description;
+
   (new Order(order)).save()
 
-  console.log('show order', order);
   res.redirect('/lunches/' + req.params.lunch_id);
 };
