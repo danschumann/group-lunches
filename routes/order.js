@@ -44,7 +44,7 @@ _.extend(exports, {
 
   update: function(req, res) {
     _.extend(req.order.attributes,
-        _.pick(req.body, 'user', 'description')
+        _.pick(req.body, 'user', 'description', 'paid')
     );
 
     req.order.save()

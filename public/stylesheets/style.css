@@ -219,3 +219,8 @@ a.button {
 .bump_up {
   margin-top: -23px;
 }
+
+.order_paid {
+  width: 60px
+}
+

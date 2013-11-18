@@ -18,6 +18,8 @@ block content
       thead
         th Order for
         th Order
+        - if (owner)
+          th Amount Paid
         th
         th
       -for (var i = 0; i < orders.length; i++)
@@ -25,6 +27,10 @@ block content
         tr
           td= order.user
           td= order.description
+          - if (owner)
+            td
+              input.order_paid(value="#{order.paid || ''}", data-order_id="#{order.id}", data-lunch_id="#{attributes.id}")
+              script(src="/javascripts/order_paid.js")
           td
              a(href="/lunches/#{attributes.id}/orders/#{order.id}") Edit
           td 
