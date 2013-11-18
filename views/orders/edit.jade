@@ -5,6 +5,7 @@ block content
   h1 Add Your Order
   - url = '/lunches/' + lunch_id + '/orders'
   - if (order)
+    -console.log('no why', order)
     -url += '/' + order.id
   form(action="#{url}",method='post')
     fieldset(data-role='controlgroup')

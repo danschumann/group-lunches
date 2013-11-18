@@ -36,7 +36,8 @@ Order.collection = orders;
 
 Order.prototype.save = function(){
 
-  var existing = _.findWhere(orders, {id: this.id});
+  var existing = _.findWhere(orders, {id: this.attributes.id});
+  console.log('is exist', existing);
   if (existing) 
     _.extend(existing, this.attributes);
   else
