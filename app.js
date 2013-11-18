@@ -8,7 +8,10 @@ var app = express();
 require('./models/lunches');
 require('./models/order');
 
-require('./lib/string_helper.js')
+require('./lib/string_helper.js');
+
+require('colors');
+console.log('\nNow'.blue, 'with'.cyan, 'colored'.red,  'console!'.green);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -19,7 +22,8 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.bodyParser());
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(express.cookieParser());
 app.use(express.cookieSession({secret:'asdfdsfajkfadsjf ksjdfkadsfasdfkjasldfjalsdfj'}));
 app.use(app.router);
@@ -35,5 +39,5 @@ require('./config/routes')(app);
 
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Lunch food orders serving on port: ' + app.get('port'));
+  console.log('\nServing lunch on port: '.cyan + app.get('port'));
 });
