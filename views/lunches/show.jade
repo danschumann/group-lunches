@@ -9,6 +9,8 @@ block content
       a(href="#{attributes.menu_url}" target="_blank") #{attributes.title}
   - else
     h1 Restaurant: #{attributes.title}
+
+  hr
     
 
   - if ((orders || {}).length)
@@ -35,6 +37,7 @@ block content
 
   - if (owner)
 
+    hr
     div.copythis_section
       span Feed people this url
       input.copythis(value="#{full_url}")
