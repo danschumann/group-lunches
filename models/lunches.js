@@ -24,7 +24,7 @@ GLOBAL.Lunch = function(attributes){
   if (!attributes.id){
 
     id = gen_id();
-    while(_.findWhere({id: id}))
+    while(_.findWhere(lunches, {id: id}))
       id = gen_id()
     attributes.id = id
   }
