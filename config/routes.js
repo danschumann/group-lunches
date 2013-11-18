@@ -1,10 +1,10 @@
-var routes = require('../routes');
+var base = require('../routes');
 var lunch = require('../routes/lunch');
 var order = require('../routes/order');
 
 module.exports = function(app) {
 
-  app.get('/', routes.index);
+  app.get('/', base.index);
 
   app.post('/lunches', lunch.create);
   app.get('/lunches/:id', lunch.show);
