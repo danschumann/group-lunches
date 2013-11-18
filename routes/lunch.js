@@ -1,10 +1,30 @@
 _ = require('underscore');
 
+sanitize_url = function(url){
+  
+  String.prototype.trim = function(){
+    return this.replace(/^\s+|\s+$/g, '');
+  }
+  
+  var pattern = /^http(s)?:\/\//i;
+	
+  url = url.trim();
+  if (!url) {
+    return;
+  }
+  
+  if(url.search(pattern) == -1){
+    url = 'http://' + url;
+  }
+  
+  return url;
+}
+
+
 _.extend(exports, {
 
   create: function(req, res, next) {
-
-    var menu_url = ('' + req.body.menu_url).sanitize_url();
+    var menu_url = sanitize_url(('' + req.body.menu_url));
     var title = req.body.title;
 
     var lunch = new Lunch({

@@ -125,6 +125,10 @@ a:hover,a:active {
 	color: #214579;
 }
 
+.display-table .option-column {
+	width:30px;
+}
+
 /* forms */
 input[type=text] {
 	width: 300px;

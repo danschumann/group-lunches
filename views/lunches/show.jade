@@ -6,7 +6,7 @@ block head
 block content 
   - if (attributes.menu_url)
     h1 Restaurant: 
-      a(href="#{attributes.menu_url}" target="_blank") #{attributes.title}
+      a(href="#{attributes.menu_url}" target="_blank" title='View menu') #{attributes.title}
   - else
     h1 Restaurant: #{attributes.title}
 
@@ -31,9 +31,9 @@ block content
             td
               input.order_paid(value="#{order.paid || ''}", data-order_id="#{order.id}", data-lunch_id="#{attributes.id}")
               script(src="/javascripts/order_paid.js")
-          td
+          td(class='option-column')
              a(href="/lunches/#{attributes.id}/orders/#{order.id}") Edit
-          td 
+          td(class='option-column') 
              a(href="/lunches/#{attributes.id}/orders/#{order.id}/delete") Delete
   - else
 
