@@ -22,3 +22,8 @@ exports.create = function(req, res, next) {
 exports.new = function(req, res) {
   res.render('orders/edit', {lunch_id: req.params.lunch_id} );
 };
+
+exports.show = function(req, res) {
+  order = Order.find(req.params.order_id);
+  res.render('orders/edit', {lunch_id: req.params.lunch_id, order: order} );
+};
