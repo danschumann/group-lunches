@@ -31,7 +31,7 @@ class GLOBAL.ModelAbstract
 
 
   destroy: ->
-    if (i = @constructor.collection.indexOf(this)) isnt -1
+    if (i = @constructor.collection.indexOf(@attributes)) isnt -1
       @constructor.collection.splice i, 1
 
     @constructor.write_to_disk()
