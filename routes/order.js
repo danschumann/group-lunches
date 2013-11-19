@@ -1,5 +1,3 @@
-_ = require('underscore');
-
 _.extend(exports, {
 
   new: function(req, res) {

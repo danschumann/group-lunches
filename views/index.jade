@@ -15,8 +15,22 @@ block content
     span This lunch system doesn't collect emails!
 
   hr
+  - if (!restaurants.length)
+    .restaurant_row You've not added any restaurants yet
+  - for( i = 0; i < restaurants.length; i ++ )
+    - var restaurant = restaurants[i]
+    form.restaurant_row(action="/lunches", method="post")
+      input(type="hidden", name="menu_url" value="#{restaurant.url}")
+      input(type="hidden", name="title" value="#{restaurant.name}")
+      input.pick_restaurant(type="submit", value="Pick Restaurant")
+      h4= restaurant.name
+      span (
+      a(href="#{restaurant.url}", target="_blank") Menu
+      span )
+      div.notes= restaurant.notes
 
-  form.skinny_form(action='/lunches',method='post')
-    input(id='title',type='text',value='', placeholder='restaurant name', name='title')
-    input(id='menu_url',type='text',value='', placeholder='menu url', name='menu_url')
-    input.floatright.button.bump_up(type='submit',value='Create')
+  form.skinny_form(action='/restaurants',method='post')
+    input(type='text',value='', placeholder='Restaurant Name', name='name')
+    input(type='text',value='', placeholder='Menu Url', name='url')
+    textarea.notes(value='', placeholder='notes ( are they closed mondays? )', name='notes')
+    input.floatright.button.bump_up(type='submit',value='Create Restaurant')

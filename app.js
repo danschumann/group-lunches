@@ -4,7 +4,15 @@ var http = require('http');
 var path = require('path');
 var app = express();
 
-// TODO: Use any database other than this
+// We use it everywhere
+global._ = require('underscore');
+
+// Okay, so, I need coffee script for model classes.
+// Just remember coffee script compiles into javascript
+// Try pasting snippets into coffeescript.org
+require('coffee-script');
+require('./config/database');
+require('./models/restaurants');
 require('./models/lunches');
 require('./models/order');
 

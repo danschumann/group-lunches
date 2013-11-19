@@ -131,7 +131,7 @@ a:hover,a:active {
 }
 
 /* forms */
-input[type=text] {
+input[type=text], textarea {
 	width: 300px;
 	margin-bottom: 5px;
 	line-height: 18px;
@@ -227,5 +227,15 @@ a.button {
 
 .order_paid {
   width: 60px
+}
+
+.restaurant_row {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.pick_restaurant {
+  float: right;
+  cursor: pointer;
 }
 
