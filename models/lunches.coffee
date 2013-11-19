@@ -5,7 +5,7 @@ class GLOBAL.Lunch extends ModelAbstract
   @db_key: 'lunches'
 
   # get all orders in parallel
-  findOrders: (done) ->
+  findOrders: ->
 
     _.where Order.collection, {lunch_id: @id}
 
