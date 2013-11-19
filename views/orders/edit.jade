@@ -8,10 +8,12 @@ block content
   - url = '/lunches/' + lunch.id + '/orders'
   - user = ''
   - description = ''
+  - button_text = 'Add'
   - if (order)
     - url += '/' + order.id
     - user = order.user
     - description = order.description
+    - button_text = 'Edit'
 
   h1 Add Your Order
 
@@ -23,4 +25,4 @@ block content
     input(id='user', type='text', value='#{user}', placeholder='name', name='user')
     input(id='description', type='text', value='#{description}', placeholder='order', name='description')
     
-    input.floatright.button.bump_up(type='submit',value='Add')
+    input.floatright.button.bump_up(type='submit',value='#{button_text}')
