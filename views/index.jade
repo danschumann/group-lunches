@@ -16,21 +16,63 @@ block content
     span This lunch system doesn't collect emails!
 
   hr
+  h2 Lunches
+
+  - if (!lunches.length)
+    div.empty_section No lunches are planned yet
+  - for( i = 0; i < lunches.length; i ++ )
+    - var lunch = new Lunch(lunches[i])
+
+    div.lunch_row
+      h4= lunch.attributes.name
+      - if (lunch.attributes.restaurant_id)
+        div Ordering from: #{lunch.getRestaurant().attributes.name}
+        a(href="/lunchs/#{lunch.id}") Go to lunch
+      - else
+        - var lr_list = lunch.getLunchRestaurants()
+        - var winner // tally up potential winner in loop
+
+        - for( x = 0; x < lr_list.length; x ++ )
+          div.restaurant_voting
+            - var lr = new LunchRestaurant(lr_list[x])
+
+            - if (!winner || winner.votes < lr.attributes.votes)
+              - winner = lr.attributes
+            div= lr.getRestaurant().attributes.name
+            div votes: #{lr.attributes.votes}
+            form(action="/lunch_restaurants/#{lr.id}/vote", method="post")
+              input(type="submit", value="vote")
+        
+        form.done_voting(action="/lunches/#{lunch.id}", method="post")
+          input(type="hidden", name="restaurant_id", value="#{winner.restaurant_id}")
+          input(type="submit", onclick="return confirm('this will stop everyone else from voting')", value="Tally votes")
+
+  hr
+  .check_all_container
+    label(for="check_all") Check all
+    input.check_all(type="checkbox")
+    script(src="/javascripts/check_all.js")
+  h2 Restaurants
   - if (!restaurants.length)
     div.empty_section You've not added any restaurants yet
-  - for( i = 0; i < restaurants.length; i ++ )
-    - var restaurant = restaurants[i]
-    form.restaurant_row(action="/lunches", method="post")
-      input(type="hidden", name="menu_url" value="#{restaurant.url}")
-      input(type="hidden", name="title" value="#{restaurant.name}")
-      input.pick_restaurant(type="submit", value="Select")
-      h4= restaurant.name
-      - if (restaurant.url)
-        span (
-        a(href="#{restaurant.url}", target="_blank") Menu
-        span )
-      div.notes= restaurant.notes
+  - else
+    form.restaurants(action="/lunches", method="post")
+      - for( i = 0; i < restaurants.length; i ++ )
+        - var restaurant = restaurants[i]
+        .restaurant_row(action="/lunches", method="post")
+          input.pick_restaurant(type="checkbox", name="restaurant_id[#{restaurant.id}]")
+          h4= restaurant.name
+          - if (restaurant.url)
+            span (
+            a(href="#{restaurant.url}", target="_blank") Menu
+            span )
+          .notes= restaurant.notes
 
+      input(name='name', type="text", placeholder='Lunch Name')
+      input.button.create_lunch(type='submit',value='Create Lunch')
+
+  hr
+  h2 Add Restaurant
   form.skinny_form(action='/restaurants', method='post')
     input(type='text',value='', placeholder='Restaurant Name', name='name' required)
     input(type='text',value='', placeholder='Menu Url', name='url')

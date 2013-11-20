@@ -1,17 +1,17 @@
 extends ../layout
 
 block head
-  -var title = attributes.title
+  -var title = restaurant.attributes.name
 
 block content 
-  - if (attributes.menu_url)
-    h1 Restaurant: 
-      a(href="#{attributes.menu_url}" target="_blank" title='View menu') #{attributes.title}
-  - else
-    h1 Restaurant: #{attributes.title}
+  h1.lunch_title= attributes.name
+  h3 We're eating at #{restaurant.attributes.name}
+  - if (restaurant.attributes.url)
+    span (
+    a(href="#{restaurant.attributes.url}" target="_blank" title='View menu') menu
+    span )
 
   hr
-    
 
   - if ((orders || {}).length)
     table.display-table
@@ -20,6 +20,7 @@ block content
         th Order
         - if (owner)
           th Amount Paid
+        th Price
         th
         th
       -for (var i = 0; i < orders.length; i++)
@@ -31,6 +32,7 @@ block content
             td
               input.order_paid(value="#{order.paid || ''}", data-order_id="#{order.id}", data-lunch_id="#{attributes.id}")
               script(src="/javascripts/order_paid.js")
+          td= order.price
           td(class='option-column')
              a(href="/lunches/#{attributes.id}/orders/#{order.id}") Edit
           td(class='option-column') 

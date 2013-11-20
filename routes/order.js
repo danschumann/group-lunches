@@ -9,11 +9,13 @@ _.extend(exports, {
     
     user = req.body.user;
     description = req.body.description;
+    price = req.body.price;
     lunch_id = req.params.lunch_id;
 
     order = new Order({
       user: user,
       description: description,
+      price: price,
       lunch_id: lunch_id
     });
     order.save();
@@ -42,7 +44,7 @@ _.extend(exports, {
 
   update: function(req, res) {
     _.extend(req.order.attributes,
-        _.pick(req.body, 'user', 'description', 'paid')
+        _.pick(req.body, 'user', 'description', 'price', 'paid')
     );
 
     req.order.save()

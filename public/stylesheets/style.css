@@ -240,3 +240,32 @@ a.button {
   float: right;
   cursor: pointer;
 }
+
+.lunch_title {
+  display: inline-block;
+}
+
+.check_all_container {
+  float: right;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+  
+.check_all_container label {
+  margin-right: 5px;
+}
+
+.lunch_row, .restaurant_voting {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+}
+.restaurant_voting {
+  display: inline-block;
+}
+
+.done_voting {
+  float: right;
+}

@@ -1,5 +1,6 @@
 var base = require('../routes');
 var restaurant = require('../routes/restaurants');
+var lunch_restaurant = require('../routes/lunch_restaurants');
 var lunch = require('../routes/lunch');
 var order = require('../routes/order');
 
@@ -11,9 +12,15 @@ module.exports = function(app) {
 
   app.post('/lunches', lunch.create);
 
+  app.post('/lunch_restaurants/:lr_id/vote', lunch_restaurant.vote);
+
   app.get('/lunches/:lunch_id',
     lunch.load_from_params,
     lunch.show);
+
+  app.post('/lunches/:lunch_id',
+    lunch.load_from_params,
+    lunch.update);
 
   app.get('/lunches/:lunch_id/orders/new',
     lunch.load_from_params,

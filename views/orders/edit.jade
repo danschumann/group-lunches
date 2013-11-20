@@ -8,11 +8,13 @@ block content
   - url = '/lunches/' + lunch.id + '/orders'
   - user = ''
   - description = ''
+  - price = ''
   - button_text = 'Add'
   - if (order)
     - url += '/' + order.id
     - user = order.user
     - description = order.description
+    - price = order.price
     - button_text = 'Edit'
 
   h1 Add Your Order
@@ -23,5 +25,6 @@ block content
     input(type='hidden', name='lunch_id', value="#{lunch_id}")
     input(id='user', type='text', value='#{user}', placeholder='name', name='user', required)
     input(id='description', type='text', value='#{description}', placeholder='order', name='description', required)
+    input(id='price', type='text', value='#{price}', placeholder='price', name='price', required)
     
     input.floatright.button.bump_up(type='submit',value='#{button_text}')

@@ -17,6 +17,7 @@ class GLOBAL.ModelAbstract
     {@id} = @attributes
     unless @id
       @attributes.id = @id = crypto.randomBytes(10).toString('hex')
+    @attributes.timestamp ?= (new Date).getTime()
 
   sanitize_url: require('../lib/sanitize_url');
 
@@ -38,18 +39,40 @@ class GLOBAL.ModelAbstract
 
   # class methods are @keys
   #
+  @where: (options) ->
+    _.where @collection, options
+
   @find: (id) ->
 
-    if (record = _.findWhere @collection, {id})?
+    if record = @where({id})?[0]
       new this(record)
 
   @get_path: -> "models/data/#{@db_key}.txt"
 
+  # Sync is ran once by every collection
   @sync: ->
     try
       @collection = JSON.parse fs.readFileSync(@get_path()).toString()
     catch er
       @collection = []
 
+    #making it the perfect place to start this
+    if @ttl
+      setInterval (=> @delete_old()), 100#0 * 60 * 5
+
   @write_to_disk: ->
     fs.writeFileSync @get_path(), JSON.stringify(@collection)
+
+  @delete_old: ->
+    n = 0
+    now = (new Date).getTime()
+    deleted_one = false
+    while n < @collection.length
+      if @collection[n].timestamp + @ttl < now
+        @collection.splice n, 1
+        deleted_one = true
+      else
+        n++
+
+    @write_to_disk() if deleted_one
+

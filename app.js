@@ -14,6 +14,7 @@ require('coffee-script');
 require('./config/database');
 require('./models/restaurants');
 require('./models/lunches');
+require('./models/lunch_restaurants');
 require('./models/order');
 
 require('./lib/string_helper.js');
