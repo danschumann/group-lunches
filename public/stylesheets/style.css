@@ -193,9 +193,10 @@ a.button {
   outline: none;
 }
 
-.empty_orders {
+.empty_section {
   border: 1px solid #c1c2c9;
-  margin: 20px 10px 10px;
+  margin: 20px;
+  padding: 10px;
 }
 
 .description {
@@ -217,6 +218,7 @@ a.button {
 }
 
 .skinny_form {
+  margin: 10px;
   max-width: 433px;
 }
 
@@ -238,4 +240,3 @@ a.button {
   float: right;
   cursor: pointer;
 }
-

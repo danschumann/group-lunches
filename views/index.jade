@@ -1,6 +1,7 @@
 extends layout
 
 block head
+  script(src="/javascripts/validation.js")
   -var title = "Group Lunches"
 
 block content
@@ -16,21 +17,22 @@ block content
 
   hr
   - if (!restaurants.length)
-    .restaurant_row You've not added any restaurants yet
+    div.empty_section You've not added any restaurants yet
   - for( i = 0; i < restaurants.length; i ++ )
     - var restaurant = restaurants[i]
     form.restaurant_row(action="/lunches", method="post")
       input(type="hidden", name="menu_url" value="#{restaurant.url}")
       input(type="hidden", name="title" value="#{restaurant.name}")
-      input.pick_restaurant(type="submit", value="Pick Restaurant")
+      input.pick_restaurant(type="submit", value="Select")
       h4= restaurant.name
-      span (
-      a(href="#{restaurant.url}", target="_blank") Menu
-      span )
+      - if (restaurant.url)
+        span (
+        a(href="#{restaurant.url}", target="_blank") Menu
+        span )
       div.notes= restaurant.notes
 
-  form.skinny_form(action='/restaurants',method='post')
-    input(type='text',value='', placeholder='Restaurant Name', name='name')
+  form.skinny_form(action='/restaurants', method='post')
+    input(type='text',value='', placeholder='Restaurant Name', name='name' required)
     input(type='text',value='', placeholder='Menu Url', name='url')
     textarea.notes(value='', placeholder='notes ( are they closed mondays? )', name='notes')
-    input.floatright.button.bump_up(type='submit',value='Create Restaurant')
+    input.floatright.button.bump_up(type='submit',value='Create')

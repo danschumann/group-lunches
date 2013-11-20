@@ -19,10 +19,9 @@ block content
 
   hr
 
-  form.skinny_form(action="#{url}", method='post')
+  form.skinny_form(id="formOrder" action="#{url}", method='post')
     input(type='hidden', name='lunch_id', value="#{lunch_id}")
-
-    input(id='user', type='text', value='#{user}', placeholder='name', name='user')
-    input(id='description', type='text', value='#{description}', placeholder='order', name='description')
+    input(id='user', type='text', value='#{user}', placeholder='name', name='user', required)
+    input(id='description', type='text', value='#{description}', placeholder='order', name='description', required)
     
     input.floatright.button.bump_up(type='submit',value='#{button_text}')
