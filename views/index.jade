@@ -26,8 +26,13 @@ block content
     div.lunch_row
       h4= lunch.attributes.name
       - if (lunch.attributes.restaurant_id)
-        div Ordering from: #{lunch.getRestaurant().attributes.name}
-        a(href="/lunchs/#{lunch.id}") Go to lunch
+        div
+          span Ordering from: #{lunch.getRestaurant().attributes.name}
+          a(href="/lunches/#{lunch.id}")
+            - if (lunch.attributes.locked)
+              .no_more Too late
+            - else
+              span Go to lunch
       - else
         - var lr_list = lunch.getLunchRestaurants()
         - var winner // tally up potential winner in loop
@@ -69,7 +74,7 @@ block content
           .notes= restaurant.notes
 
       input(name='name', type="text", placeholder='Lunch Name')
-      input.button.create_lunch(type='submit',value='Create Lunch')
+      input.button.create_lunch(type='submit', onclick="return !!$('.pick_restaurant:checked').length", value='Create Lunch')
 
   hr
   h2 Add Restaurant

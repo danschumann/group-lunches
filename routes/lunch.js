@@ -42,7 +42,7 @@ _.extend(exports, {
 
   update: function(req, res) {
     _.extend(req.lunch.attributes,
-        _.pick(req.body, 'restaurant_id')
+        _.pick(req.body, 'restaurant_id', 'locked')
     );
 
     req.lunch.save()

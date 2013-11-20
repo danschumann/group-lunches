@@ -269,3 +269,7 @@ h2 {
 .done_voting {
   float: right;
 }
+.no_more {
+  color: red;
+}
+

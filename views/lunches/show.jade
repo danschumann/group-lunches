@@ -34,15 +34,21 @@ block content
               script(src="/javascripts/order_paid.js")
           td= order.price
           td(class='option-column')
-             a(href="/lunches/#{attributes.id}/orders/#{order.id}") Edit
+            - if (!attributes.locked)
+               a(href="/lunches/#{attributes.id}/orders/#{order.id}") Edit
           td(class='option-column') 
-             a(href="/lunches/#{attributes.id}/orders/#{order.id}/delete") Delete
+            - if (!attributes.locked)
+               a(href="/lunches/#{attributes.id}/orders/#{order.id}/delete") Delete
   - else
     div.empty_section There are currently no orders.
 
     
-  p
-    a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
+  - if (attributes.locked)
+    .description.no_more
+      NO MORE ORDERS!  WE GONNA PICK IT UP NOW! KTHXBYEYW
+  -else
+    p
+      a(href="/lunches/#{attributes.id}/orders/new", class='button') New order
 
   - if (owner)
 
@@ -51,3 +57,8 @@ block content
       span Feed people this url
       input.copythis(value="#{full_url}")
       script(src="/javascripts/copythis.js")
+    hr
+    if (!attributes.locked)
+      form(action="/lunches/#{id}", method="post")
+        input(type="hidden", value="true", name="locked")
+        input(type="submit", onclick="return confirm('This will stop anyone from ordering or editting')", value="No more orders, please!")
