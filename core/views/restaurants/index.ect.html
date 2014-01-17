@@ -1,0 +1,18 @@
+<% extend 'layout.ect.html' %>
+
+<a href="/restaurants/new">Create Restaurant</a>
+
+<div class="restaurants">
+  <% @restaurants.each (restaurant) => : %>
+    <div class="restaurant_row">
+      <a class="edit_restaurant" href="/restaurants/<%- restaurant.id %>">Edit</a>
+      <h4>
+        <a href="<%- restaurant.get('menu_url') %>">
+          <%- restaurant.get('name') %>
+        </a>
+      </h4>
+      -- <%- restaurant.get('notes') %>
+
+    </div>
+  <% end %>
+</div>

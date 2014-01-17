@@ -1,0 +1,16 @@
+<% extend 'layout.ect.html' %>
+
+<form class="orders" action="/lunches/<%- @lunch_id %>/orders<%- @order?.id && ('/' + @order?.id) %>" method="post">
+
+  <h3><%- (@order? && 'Edit') || 'New' %> Order</h3>
+  
+  <div class="restaurant_inputs">
+    <input value="<%- @order?.get('food') %>" autofocus name="food" placeholder="food" />
+  </div>
+  
+  <div class="restaurant_inputs">
+    <input value="<%- @order?.get('price') %>" autofocus name="price" placeholder="price" />
+  </div>
+
+  <input type="submit" value="Save" />
+</form>

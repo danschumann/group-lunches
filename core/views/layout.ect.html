@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title> Group Lunches </title>
+  <script src="/javascripts/coffee-script.js"></script>
+  <script src="/javascripts/underscore-min.js"></script>
+  <script src="/javascripts/ect.min.js"></script>
+  <script src="/javascripts/require.js" type="text/javascript"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="/javascripts/flowtype.js" type="text/javascript"></script>
+  <script> require.config({ baseUrl: '/javascripts' }); </script>
+<% content 'head' %>
+
+  <link href='http://fonts.googleapis.com/css?family=Peralta|Varela+Round|Gilda+Display' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/frontend.css" />
+</head>
+<body>
+
+  <% include 'header.ect.html' %>
+
+  <% include 'notifications.ect.html' %>
+
+  <% content %>
+
+  <% include 'footer.ect.html' %>
+
+</body>
+</html>

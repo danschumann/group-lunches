@@ -1,0 +1,35 @@
+module.exports = {
+
+  development: {
+
+    hostName: 'localhost:3000',
+    mail: {
+      service: 'gmail',
+      auth: {
+        user: 'emailname@gmail.com', 
+        pass: '1234',
+      },
+      from: 'Dotagram <noreply@dotagram.com>',
+    },
+    server: {
+      port: 3000,
+      cookieSecret: 'long secret',
+    },
+    data: {
+      client: 'sqlite3',
+      connection: {
+        filename: 'core/data/store.db',
+      },
+      debug: true,
+    },
+    ldap: {
+      enabled: false,
+      host: 'myserver.com',
+      port: '345',
+      base: 'DC=dc,DC=com',
+      admin_user: 'usern',
+      admin_password: 'passw',
+      ssl: false,
+    },
+  }
+};

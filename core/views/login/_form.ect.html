@@ -1,0 +1,16 @@
+<form class="login<%- @req.locals.loginClasses %>" action="/login" method="post">
+  <% @body ?= {username: ''} %>
+  <div>
+    <input value="<%- @body.username %>" name="username" placeholder="username" />
+  </div>
+  <div>
+    <input <% if @body.username : %>autofocus<% end %> name="password" type="password" placeholder="password" />
+  </div>
+  <div>
+    <input type="submit" value="Log in" />
+    <br />
+    <% if !@config.ldap?.enabled : %>
+      <a href="/forgot_password">Forgot Password</a>
+    <% end %>
+  </div>
+</form>

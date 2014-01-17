@@ -1,0 +1,25 @@
+<% extend 'layout.ect.html' %>
+
+<h1>
+  <a class="create_link" href="<%- @lunch.related('restaurant').get('menu_url') %>">
+    <%- @lunch.related('restaurant').get('name') %>
+  </a>
+</h1>
+<h3><%- @lunch.get('name') %></h3>
+
+<div class="orders">
+  <a class="create_link" href="/lunches/<%- @lunch.id %>/orders/new">
+    Create Order
+  </a>
+
+  <% @lunch.related('users').each (user) => : %>
+    <div class="order_item">
+      <div class="price"><%- user.pivot.get('price') %></div>
+      <h4><%- user.fullName() %></h4>
+      <%- user.pivot.get('food') %>
+
+    </div>
+    <% console.log 'worked!'.red, user %>
+  <% end %>
+
+</div>

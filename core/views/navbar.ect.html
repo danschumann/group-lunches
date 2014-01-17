@@ -1,0 +1,32 @@
+<div class="navbar">
+  <% if @req.session.user_id : %>
+    <div class="navsection right">
+      <a href="/logout"> Logout </a>
+    </div>
+    
+    <div class="navsection right">
+      <a href="/account"> Account </a>
+    </div>
+
+    <div class="navsection">
+      <%- @req.locals.user.get('first_name') %>
+    </div>
+
+    <% if @req.session.admin : %>
+      <div class="navsection">
+        <a href="/admin">Admin</a>
+      </div>
+    <% end %>
+
+    <div class="navsection">
+      <a href="/restaurants">Restaurants</a>
+    </div>
+
+  <% else : %>
+    <% if @req.locals.loginForm isnt false : %>
+    <% if !@config.ldap?.enabled : %>
+      <% include 'login/_form.ect.html' %>
+    <% end %>
+    <% end %>
+  <% end %>
+</div>

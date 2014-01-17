@@ -1,0 +1,21 @@
+<% extend 'layout.ect.html' %>
+
+<% block 'head' : %>
+  <script src="/javascripts/index.js"></script>
+<% end %>
+
+<div class="content_main columned">
+
+  <div class="markdown_content">
+    <%- @content.index %>
+  </div>
+
+  <% if @config.ldap?.enabled : %>
+    <% @req.locals.loginClasses = ' splash' %>
+    <% include 'login/_form.ect.html' %>
+  <% else : %>
+    <% @req.locals.signupClasses = ' splash' %>
+    <% include 'signup/_form.ect.html' %>
+  <% end %>
+
+</div>

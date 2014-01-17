@@ -1,15 +1,49 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
-  "private": true,
+  "name": "group-lunches",
+  "version": "0.0.2",
+  "description": "Order food as a group without fear of spam",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node-dev index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danschumann/group-lunches.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "license": "The MIT License (MIT) \n  \n Copyright (c) 2013 danschumann \n  \n Permission is hereby granted, free of charge, to any person obtaining a copy of \n this software and associated documentation files (the \"Software\"), to deal in \n the Software without restriction, including without limitation the rights to \n use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of \n the Software, and to permit persons to whom the Software is furnished to do so, \n subject to the following conditions: \n  \n The above copyright notice and this permission notice shall be included in all \n copies or substantial portions of the Software. \n  \n THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR \n IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS \n FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR \n COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER \n IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN \n CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+  "bugs": {
+    "url": "https://github.com/danschumann/dotagram/issues"
+  },
+  "homepage": "https://github.com/danschumann/dotagram",
   "dependencies": {
-    "express": "3.4.4",
-    "jade": "*",
-    "underscore": "~1.5.2",
+    "sqlite3": "~2.1.19",
+    "promise": "~3.2.0",
+    "when": "~2.6.0",
     "colors": "~0.6.2",
-    "coffee-script": "~1.6.3"
+    "print-messages": "~0.3.0",
+    "final-fs": "~1.4.4",
+    "express": "~3.4.4",
+    "underscore": "~1.5.2",
+    "bookshelf": "~0.5.7",
+    "ect": "~0.5.4",
+    "commander": "~2.1.0",
+    "optimist": "~0.6.0",
+    "stylus": "~0.41.0",
+    "nib": "~1.0.1",
+    "loaddir": "~0.2.17",
+    "validator": "~2.0.0",
+    "bcrypt": "~0.7.7",
+    "coffee-script": "~1.6.3",
+    "jade": "*",
+    "coffeecup": "~0.3.21",
+    "nodemailer": "~0.5.15",
+    "marked": "~0.2.10",
+    "mysql": "~2.0.0",
+    "ldapjs": "~0.7.0",
+    "ldapauth": "~2.2.4",
+    "ldapauth-fork": "~2.2.11"
   }
 }

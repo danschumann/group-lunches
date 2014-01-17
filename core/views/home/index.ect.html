@@ -1,0 +1,65 @@
+<% extend 'layout.ect.html' %>
+
+<div class="lunches columned">
+
+  <h2>Today's Lunches</h2>
+
+  <div class="gold_description">
+    <% if @req.locals.user : %>
+      Welcome <%- @req.locals.user.get('first_name') %>,
+    <% end %>
+    Here's where you do the lunch thing.
+  </div>
+
+  <%- if !@lunches?.length then 'No Lunches yet' %>
+  <% @lunches.each (lunch) => : %>
+
+    <% getClassOf = Function.prototype.call.bind(Object.prototype.toString); %>
+    <% console.log('hello'.red, getClassOf lunch) %>
+    <div class="lunch_row">
+      <h4> 
+
+        <% if lunch.get('user_id') is @req.session.user_id : %>
+          <a class="edit_lunch" href="/lunches/<%- lunch.id %>">Edit</a>
+          <% if not lunch.get('restaurant_id') : %>
+            <a
+              class="edit_lunch"
+              href="/lunches/<%- lunch.id %>/tally"
+              onclick="javascript:return confirm('This will prevent others from voting')">
+                Tally Votes
+            </a>
+          <% end %> 
+        <% end %> 
+
+        <%- lunch.get('name') %> </h4>
+
+      <% if lunch.get('restaurant_id') : %>
+
+        <h5> The results are in.</h4>
+        <h3> <%- lunch.related('restaurant').get('name') %> is the winner! </h3>
+        <a class="order_link" href="/lunches/<%- lunch.id %>/orders">Order</a>
+
+      <% else : %>
+
+        <% lunch.related('restaurants').each (restaurant) => : %>
+          <form class="vote_section" action="/votes" method="post">
+            Votes: 
+            <a href="<%- restaurant.get('menu_url') %>">
+              <%- restaurant.get('name') %>
+            </a>
+            <%- restaurant.pivot.get('votes') %>
+            <input type="hidden" name="lunch_restaurant_id" value="<%- restaurant.pivot.id %>" />
+            <input type="submit" value="vote" /> 
+          </form>
+        <% end %>
+
+      <% end %>
+
+    </div>
+  <% end %>
+  <div>
+    <a class="create_link" href="/lunches/new">Create Lunch</a>
+  </div>
+
+
+</div>

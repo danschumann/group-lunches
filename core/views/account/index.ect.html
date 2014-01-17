@@ -1,0 +1,39 @@
+<% extend 'layout.ect.html' %>
+
+<form class="account" action="/account" method="post">
+
+  <h3>Edit Account</h3>
+
+  <% @body ?= {first_name: '', last_name: ''} %>
+  <% @user = @req.locals.user.toJSON() %>
+
+  <div class="account_inputs">
+    <input value="<%- @body.first_name || @user.first_name %>" name="first_name" placeholder="first name" />
+    <input value="<%- @body.last_name || @user.last_name %>" name="last_name" placeholder="last name" />
+  </div>
+
+  <div class="account_links">
+    <a href="/email">Change Email</a>
+    <% if !@config.ldap?.enabled : %>
+      | <a href="/password">Change Password</a>
+    <% end %>
+  </div>
+
+  <div class="notifications_overview">
+    <h3>Notify via email</h3>
+    <div class="notification_setting">
+      <label>When voting starts</label>
+      <input type="checkbox" name="notify_start_vote" <%- @user.notify_start_vote && 'checked' %> />
+    </div>
+    <div class="notification_setting">
+      <label>When voting ends</label>
+      <input type="checkbox" name="notify_end_vote" <%- @user.notify_end_vote && 'checked' %> />
+    </div>
+    <div class="notification_setting">
+      <label>When pickup happens (for an order I've participated in)</label>
+      <input type="checkbox" name="notify_pickup" <%- @user.notify_pickup && 'checked' %> />
+    </div>
+  </div>
+
+  <input type="submit" value="Save" />
+</form>

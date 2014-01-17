@@ -1,0 +1,30 @@
+<form class="signup<%- @req.locals.signupClasses %>" action="/signup" method="post">
+  <h3>Group Lunches Sign Up</h3>
+  <div class="gold_description">
+    By signing up,  we can better serve you(food).
+  </div>
+  <% @body ?= {first_name: '', last_name: '', username: '', confirm_username: ''} %>
+
+  <div>
+    <input value="<%- @body.first_name %>" name="first_name" placeholder="first name" />
+    <input value="<%- @body.last_name %>" name="last_name" placeholder="last name" />
+  </div>
+
+  <div>
+    <input class="username_input" value="<%- @body.username %>" name="username" placeholder="username" />
+  </div>
+  <div>
+    <input class="username_input" value="<%- @body.confirm_username %>" name="confirm_username" placeholder="confirm username" />
+  </div>
+
+  <div>
+    <input name="password" type="password" placeholder="password" />
+  </div>
+
+  <div class="tiny_note">
+    By clicking "Sign up" you are agreeing to the <a href="/terms" target="_blank"> terms and services</a>
+  </div>
+
+  <input type="submit" value="Sign up" />
+</form>
+

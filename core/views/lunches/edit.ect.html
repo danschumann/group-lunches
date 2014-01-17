@@ -1,0 +1,44 @@
+<% extend 'layout.ect.html' %>
+
+<form class="lunch" action="/lunches<%- @lunch?.id && ('/' + @lunch?.id) %>" method="post">
+
+  <h3><%- (@lunch? && 'Edit') || 'New' %> Lunch</h3>
+  
+  <div class="restaurant_inputs">
+    Belongs to:
+    <select name="user_id">
+      <% @users.each (user) => : %>
+        <%
+          selected = false
+          # New records default to this user
+          selected = true if !@lunch && user.id == @req.session.user_id
+          selected = true if @lunch?.get('user_id') == @req.session.user_id
+        %>
+        <option value="<%- user.id %>" <%- selected && 'selected' %> >
+          <%- user.fullName() %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="restaurant_inputs">
+    <input value="<%- @lunch?.get('name') %>" autofocus name="name" placeholder="name" />
+  </div>
+
+  <% @restaurants.each (restaurant) => : %>
+    <div class="restaurant_row">
+      <input type="checkbox" name="restaurant_id[r<%- restaurant.id %>]" <%-
+        @lunch?.related('lunch_restaurants').findWhere({restaurant_id: restaurant.id}) && 'checked'
+      %> />
+      <h4>
+        <a href="<%- restaurant.get('menu_url') %>">
+          <%- restaurant.get('name') %>
+        </a>
+      </h4>
+      -- <%- restaurant.get('notes') %>
+    </div>
+
+  <% end %>
+
+  <input type="submit" value="Save" />
+</form>

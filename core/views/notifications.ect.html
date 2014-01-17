@@ -1,0 +1,27 @@
+<% if @_.size @req.session.errors : %>
+  <ul class="errors">
+  <% for type, errors of @req.session.errors : %>
+    <% for er in errors : %>
+      <li>
+        <%- er %>
+      </li>
+
+    <% delete @req.session.errors %>
+    <% end %>
+  <% end %>
+  </ul>
+<% end %>
+
+<% if @_.size @req.session.notifications : %>
+  <ul class="notifications">
+  <% for type, notifications of @req.session.notifications : %>
+    <% for er in notifications : %>
+      <li>
+        <%- er %>
+      </li>
+
+    <% delete @req.session.notifications %>
+    <% end %>
+  <% end %>
+  </ul>
+<% end %>

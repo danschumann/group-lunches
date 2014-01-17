@@ -1,0 +1,10 @@
+<% extend 'layout.ect.html' %>
+
+<form class="signup" action="/email" method="post">
+  Change Email
+  <br />
+  Current Email: <%- @req.locals.user.get('email') %>
+  <input name="email" placeholder="email" />
+  <input name="confirm_email" placeholder="confirm email" />
+  <input type="submit" value="Change Email" />
+</form>
