@@ -1,9 +1,0 @@
-/node_modules
-.project
-/models/data
-/models/data/
-/models/data/*
-models/data
-models/data/
-models/data/*
-npm-debug.log
