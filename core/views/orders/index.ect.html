@@ -8,7 +8,7 @@
 <h3><%- @lunch.get('name') %></h3>
 
 <div class="orders">
-  <a class="create_link" href="/lunches/<%- @lunch.id %>/orders/new">
+  <a class="create_link" href="/lunches/<%- @lunch.id %>/foods/new">
     Add Food
   </a>
 
@@ -19,7 +19,10 @@
       <% order.related('foods').each (food) => : %>
         <div class="food_item">
           <div class="price"><%- food.get('price') %></div>
-          <div class="name"><%- food.get('name') %></div>
+          <div class="name">
+            <%- food.get('name') %>
+            <a class="edit_link" href="/lunches/<%- @lunch.id %>/foods/<%- food.id %>">edit</a>
+          </div>
         </div>
       <% end %>
 

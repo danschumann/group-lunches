@@ -4,7 +4,7 @@
   <script src="/javascripts/orders_edit.js"></script>
 <% end %>
 
-<form class="orders" action="/lunches/<%- @lunch.id %>/orders<%- @order?.id && ('/' + @order?.id) %>" method="post">
+<form class="orders" action="/lunches/<%- @lunch.id %>/foods<%- @food?.id && ('/' + @food?.id) %>" method="post">
 
   <div class="previous_foods">
     <h4>Previous orders at this restaurant</h4>
@@ -22,13 +22,13 @@
     <% end %>
   </div>
   
-  <h3><%- (@order? && 'Edit') || 'New' %> Order</h3>
+  <h3><%- (@food? && 'Edit') || 'New' %> Food</h3>
   <div class="restaurant_inputs">
-    <input value="<%- @order?.get('food') %>" autofocus name="food" placeholder="food" />
+    <input value="<%- @food?.get('name') %>" autofocus name="food" placeholder="food" />
   </div>
   
   <div class="restaurant_inputs">
-    <input value="<%- @order?.get('price') %>" autofocus name="price" placeholder="price" />
+    <input value="<%- @food?.get('price') %>" autofocus name="price" placeholder="price" />
   </div>
 
   <input type="submit" value="Save" />

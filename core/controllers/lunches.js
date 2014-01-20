@@ -31,7 +31,7 @@ module.exports = {
 
   },
 
-  edit: function(req, res, next){
+  edit: function(req, res, next) {
 
     var users, restaurants;
 
@@ -51,7 +51,7 @@ module.exports = {
 
   },
 
-  update: function(req, res, next){
+  update: function(req, res, next) {
     var attributes = _.pick(req.body, 'name', 'user_id');
 
     _.each(attributes, function(val, key){
@@ -100,21 +100,27 @@ module.exports = {
   },
 
   tally: function(req, res, next) {
+
     Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: ['restaurants']})
     .then(function(lunch){
       if (lunch.get('user_id') !== req.session.user_id) {
         req.error('You must be the lunch owner to tally the votes');
         return when.reject()
-      }
-      var max = {id: null, votes: -1}
+      };
+      var max = {id: [], votes: -1};
       lunch.related('restaurants').each(function(restaurant){
-        if (restaurant.pivot.get('votes') > max.votes) {
-          max.id = restaurant.id;
+        if (restaurant.pivot.get('votes') == max.votes) {
+          max.id.push(restaurant.id);
+        } else if (restaurant.pivot.get('votes') > max.votes) {
+          max.id = [restaurant.id];
           max.votes = restaurant.pivot.get('votes');
-        }
+        };
       });
 
-      return lunch.set('restaurant_id', max.id).save();
+      // Picks a random id of all the ones that tied for top place
+      var id = max.id[Math.floor(max.id.length * Math.random() - .0000001)];
+
+      return lunch.set('restaurant_id', id).save();
 
       console.log(lunch.related('restaurants'))
     })
