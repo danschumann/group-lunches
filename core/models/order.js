@@ -43,6 +43,20 @@ instanceMethods = {
     },
   },
 
+  calculate: function(){
+
+    var order = this;
+
+    var price = 0;
+    return this.load('foods').then(function(){
+      order.related('foods').each(function(food){
+        price += food.get('price');
+      });
+      return order.set('price', price).save();
+    });
+
+  },
+
 };
 
 classMethods = {

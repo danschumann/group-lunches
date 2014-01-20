@@ -2,6 +2,10 @@
 
 logo-blue = #214579
 light-blue = #2f5c96
+
+logo-red = #794521
+light-red = #965c2f
+
 gray-link = #B8CFB6
 
 pre
@@ -507,8 +511,12 @@ h2 {
     font-size: 15px
 
 .lunch_row
+  h4 
+    clearfix()
   margin: 5px;
   padding-bottom: 10px
+  .created_user
+    float right
   border: 1px solid #ccc;
   h4
     text-align left
@@ -557,7 +565,7 @@ h2 {
     color: logo-blue
     border-bottom: 1px solid logo-blue
 
-.create_link, .order_link
+.create_link, .order_link, .remove_link
   
   display: inline-block
   padding: 5px 10px
@@ -570,6 +578,12 @@ h2 {
     color: white!important
     background: light-blue
     border-bottom 0!important
+
+.remove_link
+  background: logo-red
+  &:hover
+    background: light-red
+
 
 .order_link
   background #DD914C
@@ -595,6 +609,8 @@ h2 {
   margin 2px auto
   border: 1px solid #ccc;
   padding: 10px;
+  h4
+    margin-top 0
 
 .order_item
   h4
@@ -630,3 +646,25 @@ h2 {
     width: 50px
   .name
     width: 320px
+
+.closed_message
+  background: #E9BEBE
+  margin: 10px auto
+  padding: 10px 15px
+  width: 640px
+
+.notify_me
+  float left
+  margin-top: 10px
+  border: 1px solid orange
+
+.clearfix
+  clearfix()
+
+.floatright
+  float righ
+
+.white_link
+  color white
+  &:hover
+    color white!important

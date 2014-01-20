@@ -9,6 +9,7 @@ module.exports = {
       table.integer('restaurant_id');
       table.integer('order_id');
       table.text('name');
+      table.text('notes');
       table.decimal('price', 4, 2);
       table.timestamps();
     }).then(function(){

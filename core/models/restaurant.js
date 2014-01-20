@@ -30,12 +30,24 @@ instanceMethods = {
     return this.hasMany(require('./food').Foods);
   },
 
+  notifications: function(){
+    return this.hasMany(require('./restaurant_notification').RestaurantNotification);
+  },
+
   sanitize: function(){
+    this.set('name', _.escape(this.get('name')));
     this.set('menu_url', sanitizeURL(this.get('menu_url')));
+    this.set('notes', _.escape(this.get('notes')));
     return this;
   },
 
   validations: {
+    name: function(val){
+      check(val || '', 'Restaurant name must be between 2 and 45 characters').len(2, 45); 
+    },
+    menu_url: function(val){
+      check(val || '', 'Restaurant url must be valid url').isUrl(); 
+    },
   },
 
 };

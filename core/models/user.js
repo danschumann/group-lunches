@@ -67,7 +67,7 @@ instanceMethods = {
   },
 
   formattedEmail: function(){
-    return this.get('first_name') + ' ' + this.get('last_name') + ' <' + this.get('username') + '>';
+    return this.get('first_name') + ' ' + this.get('last_name') + ' <' + this.get('email') + '>';
   },
 
   checkPassword: function(test_pass) {

@@ -1,4 +1,5 @@
 var
+  RestaurantNotification = require('../models/restaurant_notification').RestaurantNotification,
   Restaurants = require('../models/restaurant').Restaurants,
   Restaurant  = require('../models/restaurant').Restaurant;
 
@@ -6,7 +7,9 @@ module.exports = {
 
   index: function(req, res, next){
 
-    Restaurants.forge().fetch().then(function(restaurants){
+    Restaurants.forge().fetch({withRelated: [
+      {notifications: function(qb) { qb.where('user_id', req.session.user_id); }},
+    ]}).then(function(restaurants){
       console.log('restaurants', restaurants)
       res.view('restaurants', {restaurants: restaurants});
     });
@@ -15,11 +18,15 @@ module.exports = {
   create: function(req, res, next){
     var attributes = _.pick(req.body, 'name', 'menu_url', 'notes');
 
-    _.each(attributes, function(val, key){
-      attributes[key] = _.escape(val);
-    });
+    var restaurant = Restaurant.forge(attributes)
 
-    Restaurant.forge(attributes).sanitize().save()
+    restaurant.validate()
+    if (restaurant.hasError()){
+      req.error(restaurant.errors);
+      return module.exports.edit.apply(this, arguments);
+    }
+      
+    restaurant.sanitize().save()
     .then(function(restaurant){
       if (restaurant.id)
         req.notification('Saved ' + attributes.name);
@@ -45,9 +52,13 @@ module.exports = {
   update: function(req, res, next){
     var attributes = _.pick(req.body, 'name', 'menu_url', 'notes');
 
-    _.each(attributes, function(val, key){
-      attributes[key] = _.escape(val);
-    });
+    var restaurant = Restaurant.forge(attributes)
+
+    restaurant.validate()
+    if (restaurant.hasError()){
+      req.error(restaurant.errors);
+      return module.exports.edit.apply(this, arguments);
+    }
 
     Restaurant.forge({id: req.params.restaurant_id}).fetch()
     .then(function(restaurant){
@@ -60,6 +71,23 @@ module.exports = {
         req.error('Did not save ' + attributes.name);
       res.redirect('/restaurants')
     });
+
+  },
+
+  notify: function(req, res, next){
+    
+    var rn = RestaurantNotification.forge({
+      restaurant_id: req.params.restaurant_id,
+      user_id: req.session.user_id,
+    });
+
+    rn.fetch().then(function(){
+      console.log(rn.id, req.body.notify);
+      if (!rn.id && req.body.notify == 'true')
+        return rn.save()
+      else if( rn.id && req.body.notify !== 'true')
+        return rn.destroy()
+    })
 
   },
 

@@ -6,8 +6,14 @@
 
 <form class="orders" action="/lunches/<%- @lunch.id %>/foods<%- @food?.id && ('/' + @food?.id) %>" method="post">
 
+  <h3><a href="/lunches/<%- @lunch.id %>/orders"><%- @lunch.get('name') %></a></h3>
   <div class="previous_foods">
-    <h4>Previous orders at this restaurant</h4>
+    <h4>
+      Previous orders at
+      <a target="_blank" href="<%- @lunch.related('restaurant').get('menu_url') %>">
+        <%- @lunch.related('restaurant').get('name') %>
+      </a>
+    </h4>
     <% @lunch.related('restaurant').related('foods').each (food) => : %>
       <div class="previous_food">
         <input class="price" type="hidden" value="<%- food.get('price') %>" />
@@ -23,12 +29,17 @@
   </div>
   
   <h3><%- (@food? && 'Edit') || 'New' %> Food</h3>
+  <% @body ?= @req.body ? {} %>
   <div class="restaurant_inputs">
-    <input value="<%- @food?.get('name') %>" autofocus name="food" placeholder="food" />
+    <input value="<%- @body?.name ? @food?.get('name') %>" autofocus name="name" placeholder="food" />
+  </div>
+
+  <div class="restaurant_inputs">
+    <textarea name="notes" placeholder="notes -- wheat/white(bread) white/brown(rice) mild/hot(spicyness)" /><%- @body?.notes ? @food?.get('notes') %></textarea>
   </div>
   
   <div class="restaurant_inputs">
-    <input value="<%- @food?.get('price') %>" autofocus name="price" placeholder="price" />
+    <input value="<%- @body?.price ? @food?.get('price') %>" name="price" placeholder="price" />
   </div>
 
   <input type="submit" value="Save" />

@@ -7,15 +7,22 @@ var
 base = {
   index: function(req, res, next){
     if (req.locals.user && !req.locals.user.get('email')) {
+
       req.notification("Please set the email you'd like to receive updates from");
       res.redirect('/email');
+
     } else if (req.locals.user && !req.locals.user.get('first_name')) {
+
       req.notification("Please set your name");
       res.redirect('/account');
-    } else if ( req.session.user_id ){
-      console.log('heyo'.rainbow)
 
-      Lunches.forge().fetch({withRelated: ['restaurants', 'restaurant']})
+    } else if ( req.session.user_id ){
+
+      //
+      // Home 
+      //
+
+      Lunches.forge().fetch({withRelated: ['restaurants', 'restaurant', 'user']})
       .then(function(lunches){
         res.view('home', {lunches: lunches});
       });

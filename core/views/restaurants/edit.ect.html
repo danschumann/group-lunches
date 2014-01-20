@@ -5,14 +5,14 @@
   <h3><%- (@restaurant? && 'Edit') || 'New' %> Restaurant</h3>
 
   <div class="restaurant_inputs">
-    <input value="<%- @restaurant?.name %>" autofocus name="name" placeholder="name" />
+    <input value="<%- @req.body.name ? @restaurant?.name %>" autofocus name="name" placeholder="name" />
   </div>
   <div class="restaurant_inputs">
-    <input value="<%- @restaurant?.menu_url %>" name="menu_url" placeholder="menu url" />
+    <input value="<%- @req.body.menu_url ? @restaurant?.menu_url %>" name="menu_url" placeholder="menu url" />
   </div>
 
   <div class="restaurant_inputs">
-    <textarea name="notes" placeholder="notes -- Closed on mondays?" ><%- @restaurant?.notes %></textarea>
+    <textarea name="notes" placeholder="notes -- Closed on mondays?" ><%- @req.body.notes ? @restaurant?.notes %></textarea>
   </div>
 
   <input type="submit" value="Save" />

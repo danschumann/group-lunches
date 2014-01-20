@@ -9,6 +9,44 @@ module.exports = {
     // todo
   },
 
+  notifyVotingClosed: function(lunch){
+
+    var user = this;
+    var url = 'http://' + config.hostName + '/lunches/' + lunch.id + '/orders';
+
+    nodefn.call(sendMail, {
+      to: this.formattedEmail(),
+      from: config.mail.from,
+      subject: 'New Lunch',
+      text: 'Voting is closed on : ' + lunch.get('name') + ' at ' + url + '\n You either voted or this restaurant is in your notifications',
+      html: 'Voting is closed for <a href="' + url + '">' + lunch.get('name') + '</a><br />You either voted or this restaurant is in your notifications',
+    })
+    .then(function(){
+      console.log('Sent Mail'.green);
+    })
+    .otherwise(function(){
+      console.log('Failed Mail'.red, arguments, user.formattedEmail());
+    });
+  },
+  notifyVote: function(lunch){
+
+    var user = this;
+    var url = 'http://' + config.hostName + '/lunches/' + lunch.id + '/orders';
+
+    nodefn.call(sendMail, {
+      to: this.formattedEmail(),
+      from: config.mail.from,
+      subject: 'New Lunch',
+      text: 'A new lunch titled: ' + lunch.get('name') + ' has been started at ' + url,
+      html: 'Vote for the lunch <a href="' + url + '">' + lunch.get('name') + '</a>',
+    })
+    .then(function(){
+      console.log('Sent Mail'.green);
+    })
+    .otherwise(function(){
+      console.log('Failed Mail'.red, arguments, user.formattedEmail());
+    });
+  },
   forgot_password: function(){
 
     var url = 'http://' + config.hostName + '/reset_password?user_id=' + this.id + '&token=' + this.get('password_token')

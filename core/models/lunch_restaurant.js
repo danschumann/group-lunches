@@ -18,8 +18,17 @@ instanceMethods = {
   lunch: function(){
     return this.belongsTo(require('./lunch').Lunch);
   },
+
   restaurant: function(){
     return this.belongsTo(require('./restaurant').Restaurant);
+  },
+
+  voters: function(){
+    return this.belongsToMany(require('./user').User, 'votes');
+  },
+
+  votes: function(){
+    return this.hasMany(require('./vote').Votes);
   },
 
   // Email functions can take up a lot of room

@@ -12,7 +12,7 @@
           selected = false
           # New records default to this user
           selected = true if !@lunch && user.id == @req.session.user_id
-          selected = true if @lunch?.get('user_id') == @req.session.user_id
+          selected = true if @lunch?.get('user_id') == user.id
         %>
         <option value="<%- user.id %>" <%- selected && 'selected' %> >
           <%- user.fullName() %>

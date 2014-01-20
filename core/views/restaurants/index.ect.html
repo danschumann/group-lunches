@@ -1,9 +1,24 @@
 <% extend 'layout.ect.html' %>
 
+<% block 'head' : %>
+  <script src="/javascripts/restaurant_vote_notification.js"></script>
+<% end %>
+
 <a href="/restaurants/new">Create Restaurant</a>
 
 <div class="restaurants">
+  <div class="clearfix">
+    <div class="notify_me">
+      Checkbox: Notify via email when this wins voting
+    </div>
+  </div>
   <% @restaurants.each (restaurant) => : %>
+
+  <div>
+    <div class="notify_me" >
+      <% console.log restaurant.related('notifications'), restaurant.relations %>
+      <input type="checkbox" data-id="<%- restaurant.id %>" <%- restaurant.related('notifications')?.at(0) && 'checked' %> />
+    </div>
     <div class="restaurant_row">
       <a class="edit_restaurant" href="/restaurants/<%- restaurant.id %>">Edit</a>
       <h4>
@@ -14,5 +29,6 @@
       -- <%- restaurant.get('notes') %>
 
     </div>
+  </div>
   <% end %>
 </div>

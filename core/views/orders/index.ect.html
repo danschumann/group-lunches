@@ -1,16 +1,25 @@
-<% extend 'layout.ect.html' %>
-
 <h1>
   <a class="create_link" href="<%- @lunch.related('restaurant').get('menu_url') %>">
     <%- @lunch.related('restaurant').get('name') %>
   </a>
 </h1>
-<h3><%- @lunch.get('name') %></h3>
 
 <div class="orders">
-  <a class="create_link" href="/lunches/<%- @lunch.id %>/foods/new">
-    Add Food
-  </a>
+  <% if @lunch.get('closed') : %>
+    <div class="closed_message">
+      <%- @content.order_closed %>
+    </div>
+  <% else : %>
+    <a class="create_link" href="/lunches/<%- @lunch.id %>/foods/new">
+      Add Food
+    </a>
+
+    <% if @lunch.get('user_id') == @req.session.user_id or @req.session.admin : %>
+      <a class="remove_link" href="/lunches/<%- @lunch.id %>/close">
+        Close Order
+      </a>
+    <% end %>
+  <% end %>
 
   <% @orders.each (order) => : %>
     <div class="order_item">
@@ -20,12 +29,18 @@
         <div class="food_item">
           <div class="price"><%- food.get('price') %></div>
           <div class="name">
-            <%- food.get('name') %>
-            <a class="edit_link" href="/lunches/<%- @lunch.id %>/foods/<%- food.id %>">edit</a>
+            <strong><%- food.get('name') %></strong>
+            <% if !@lunch.get('closed') and (order.get('user_id') is @req.session.user_id or @req.session.admin): %>
+              <a class="edit_link" href="/lunches/<%- @lunch.id %>/foods/<%- food.id %>">edit</a>
+              <a class="edit_link" 
+                onclick="javascript: return confirm('are you sure?');" 
+                href="/lunches/<%- @lunch.id %>/foods/<%- food.id %>/destroy">destroy</a>
+            <% end %>
+            <br />
+            <%- food.get('notes') %>
           </div>
         </div>
       <% end %>
-
 
       <div class="food_item">
         <div class="price"><%- order.get('price') %></div>
@@ -33,7 +48,6 @@
       </div>
 
     </div>
-    <% console.log 'worked!'.red, order.related('user') %>
   <% end %>
 
 </div>

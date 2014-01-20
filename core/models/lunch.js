@@ -20,6 +20,7 @@ instanceMethods = {
     'id',
     'user_id', 
     'name', 
+    'closed', 
     'restaurant_id', 
   ],
 
@@ -32,6 +33,10 @@ instanceMethods = {
   users: function(){
     return this
       .belongsToMany(require('./user').Users, 'orders');
+  },
+
+  user: function(){
+    return this.belongsTo(require('../models/user').User);
   },
 
   restaurant: function(){
@@ -53,16 +58,22 @@ instanceMethods = {
 
     var lunch = this;
 
-    console.log('dhe'.blue, restaurant_ids);
     return when.map(_.keys(restaurant_ids), function(restaurant_id){
-      console.log('heyo'.red, restaurant_id);
       return require('../models/lunch_restaurant').LunchRestaurant.forge({
         votes: 0,
         restaurant_id: restaurant_id.substring(1),
         lunch_id: lunch.id
       }).save()
+    })
+    .then(function(){
+      return require('./user').Users.forge().fetch({where: {notify_start_vote: true}});
+    })
+    .then(function(users){
+      if (_.keys(restaurant_ids).length > 1)
+        users.each(function(user){
+          user.mailers.notifyVote(lunch);
+        });
     });
-
   },
 
 };

@@ -1,0 +1,11 @@
+<% extend 'layout.ect.html' %>
+
+<h3><%- @lunch.get('name') %></h3>
+
+<% if @lunch.get('restaurant_id') : %>
+  <% console.log 'no'.red %>
+  <% include 'orders/index.ect.html' %>
+<% else : %>
+  <% console.log 'yes'.green %>
+  <% include 'lunches/vote.ect.html' %>
+<% end %>

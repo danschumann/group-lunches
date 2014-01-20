@@ -1,0 +1,11 @@
+<% @lunch.related('restaurants').each (restaurant) => : %>
+  <form class="vote_section" action="/votes" method="post">
+    Votes: 
+    <a href="<%- restaurant.get('menu_url') %>">
+      <%- restaurant.get('name') %>
+    </a>
+    <%- restaurant.pivot.get('votes') %>
+    <input type="hidden" name="lunch_restaurant_id" value="<%- restaurant.pivot.id %>" />
+    <input type="submit" value="vote" /> 
+  </form>
+<% end %>

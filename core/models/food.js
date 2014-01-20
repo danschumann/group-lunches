@@ -30,6 +30,7 @@ instanceMethods = {
     'order_id', 
     'restaurant_id', 
     'name', 
+    'notes', 
     'price', 
   ],
 

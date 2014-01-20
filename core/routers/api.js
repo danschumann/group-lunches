@@ -17,4 +17,7 @@ var
 
 module.exports = function(app){
 
+  // Stuff from JS ajax
+  app.post ('/restaurants/:restaurant_id/notify', authentication.user, user.load, controllers.restaurants.notify);
+
 };

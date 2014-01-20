@@ -61,11 +61,14 @@ module.exports = function(app){
   app.post ('/lunches/:lunch_id', authentication.user, user.load, controllers.lunches.update);
 
   app.get  ('/lunches/:lunch_id/tally', authentication.user, user.load, controllers.lunches.tally);
+  app.get  ('/lunches/:lunch_id/close', authentication.user, user.load, controllers.lunches.close);
 
-  app.get  ('/lunches/:lunch_id/orders', authentication.user, user.load, controllers.orders.index);
+  app.get  ('/lunches/:lunch_id/orders', authentication.user, user.load, controllers.lunches.show);
+
   app.get  ('/lunches/:lunch_id/foods/new', authentication.user, user.load, controllers.foods.edit);
   app.get  ('/lunches/:lunch_id/foods/:food_id', authentication.user, user.load, controllers.foods.edit);
   app.post ('/lunches/:lunch_id/foods/:food_id', authentication.user, user.load, controllers.foods.update);
+  app.get  ('/lunches/:lunch_id/foods/:food_id/destroy', authentication.user, user.load, controllers.foods.destroy);
   app.post ('/lunches/:lunch_id/foods/?', authentication.user, user.load, controllers.foods.create);
 
   app.post ('/votes/?', authentication.user, user.load, controllers.votes.create);
