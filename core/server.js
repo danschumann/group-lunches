@@ -48,7 +48,7 @@ Server = function(){
   app.use(middleware.view);
   
   // Frontend -- Coffeescript files
-  //app.use(middleware.coffeescript({ src: __dirname + '/frontend'}));
+  app.use(middleware.coffeescript({ src: __dirname + '/frontend'}));
 
   // Frontend -- Stylesheets
   app.use(middleware.stylus({ src: __dirname + '/stylesheets' }));

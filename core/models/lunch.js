@@ -25,13 +25,13 @@ instanceMethods = {
 
   restaurants: function(){
     return this
-      .belongsToMany(require('../models/restaurant').Restaurants, 'lunch_restaurants')
+      .belongsToMany(require('./restaurant').Restaurants, 'lunch_restaurants')
       .withPivot(['votes', 'id']);
   },
 
   users: function(){
     return this
-      .belongsToMany(require('../models/user').Users, 'orders');
+      .belongsToMany(require('./user').Users, 'orders');
   },
 
   restaurant: function(){

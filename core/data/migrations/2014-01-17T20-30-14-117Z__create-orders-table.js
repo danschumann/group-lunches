@@ -8,6 +8,7 @@ module.exports = {
       table.increments('id').primary();
       table.integer('lunch_id');
       table.integer('user_id');
+      table.decimal('price', 5, 2); // total for all foods connected to this order
       table.decimal('paid', 5, 2);
       table.timestamps();
     }).then(function(){

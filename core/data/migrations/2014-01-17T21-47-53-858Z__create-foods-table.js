@@ -6,6 +6,7 @@ module.exports = {
 
     return data.schema.createTable('foods', function(table){
       table.increments('id').primary();
+      table.integer('restaurant_id');
       table.integer('order_id');
       table.text('name');
       table.decimal('price', 4, 2);

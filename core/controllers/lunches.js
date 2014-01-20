@@ -119,7 +119,7 @@ module.exports = {
       console.log(lunch.related('restaurants'))
     })
     .then(function(lunch){
-      res.redirect('/lunches/' + lunch.id + '/order');
+      res.redirect('/lunches/' + lunch.id + '/orders');
     })
     .otherwise(function(){
       res.redirect('back');

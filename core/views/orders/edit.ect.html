@@ -1,9 +1,28 @@
 <% extend 'layout.ect.html' %>
 
-<form class="orders" action="/lunches/<%- @lunch_id %>/orders<%- @order?.id && ('/' + @order?.id) %>" method="post">
+<% block 'head' : %>
+  <script src="/javascripts/orders_edit.js"></script>
+<% end %>
 
-  <h3><%- (@order? && 'Edit') || 'New' %> Order</h3>
+<form class="orders" action="/lunches/<%- @lunch.id %>/orders<%- @order?.id && ('/' + @order?.id) %>" method="post">
+
+  <div class="previous_foods">
+    <h4>Previous orders at this restaurant</h4>
+    <% @lunch.related('restaurant').related('foods').each (food) => : %>
+      <div class="previous_food">
+        <input class="price" type="hidden" value="<%- food.get('price') %>" />
+        <input class="name" type="hidden" value="<%- food.get('name') %>" />
+        <div class="price">
+          <%- food.get('price') %>
+        </div>
+        <div class="name">
+          <%- food.get('name') %>
+        </div>
+      </div>
+    <% end %>
+  </div>
   
+  <h3><%- (@order? && 'Edit') || 'New' %> Order</h3>
   <div class="restaurant_inputs">
     <input value="<%- @order?.get('food') %>" autofocus name="food" placeholder="food" />
   </div>
@@ -13,4 +32,5 @@
   </div>
 
   <input type="submit" value="Save" />
+
 </form>

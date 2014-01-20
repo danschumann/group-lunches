@@ -9,17 +9,28 @@
 
 <div class="orders">
   <a class="create_link" href="/lunches/<%- @lunch.id %>/orders/new">
-    Create Order
+    Add Food
   </a>
 
-  <% @lunch.related('users').each (user) => : %>
+  <% @orders.each (order) => : %>
     <div class="order_item">
-      <div class="price"><%- user.pivot.get('price') %></div>
-      <h4><%- user.fullName() %></h4>
-      <%- user.pivot.get('food') %>
+      <h4><%- order.related('user').fullName() %></h4>
+
+      <% order.related('foods').each (food) => : %>
+        <div class="food_item">
+          <div class="price"><%- food.get('price') %></div>
+          <div class="name"><%- food.get('name') %></div>
+        </div>
+      <% end %>
+
+
+      <div class="food_item">
+        <div class="price"><%- order.get('price') %></div>
+        <div class="name">total</div>
+      </div>
 
     </div>
-    <% console.log 'worked!'.red, user %>
+    <% console.log 'worked!'.red, order.related('user') %>
   <% end %>
 
 </div>

@@ -1,6 +1,5 @@
-
 var
-  Order, Orders,
+  Food, Foods,
   columns, instanceMethods, classMethods, options,
 
   config     = require('../lib/config-loader'),
@@ -14,27 +13,24 @@ var
 
 instanceMethods = {
 
-  tableName: 'orders',
+  tableName: 'foods',
 
-  lunch: function(){
-    return this.belongsTo(require('./lunch').Lunch);
+  order: function(){
+    return this.belongsTo(require('./order').Order);
   },
 
-  user: function(){
-    return this.belongsTo(require('./user').User);
-  },
-
-  foods: function(){
-    return this.hasMany(require('./food').Foods);
+  // Denormalized restaurant makes it easier to reselect foods later
+  restaurant: function(){
+    return this.belongsTo(require('./restaurant').Restaurant);
   },
 
   // Email functions can take up a lot of room
   permittedAttributes: [
     'id',
-    'user_id', 
-    'lunch_id', 
+    'order_id', 
+    'restaurant_id', 
+    'name', 
     'price', 
-    'paid', 
   ],
 
   validations: {
@@ -54,7 +50,7 @@ options = {
   classMethods: classMethods,
 };
 
-Order = bookshelf.Model.extend(instanceMethods, classMethods);
-Orders = bookshelf.Collection.extend({ model: Order });
+Food = bookshelf.Model.extend(instanceMethods, classMethods);
+Foods = bookshelf.Collection.extend({ model: Food, tableName: 'foods', });
     
-module.exports = {Order: Order, Orders: Orders};
+module.exports = {Food: Food, Foods: Foods};

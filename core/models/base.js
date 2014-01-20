@@ -4,7 +4,6 @@ var
   config    = require('../lib/config-loader'),
   Validator = require('validator').Validator,
   Bookshelf = require('bookshelf'),
-  LdapAuth  = require('ldapauth-fork'),
   when      = require('when'),
   join      = require('path').join;
 
@@ -14,7 +13,8 @@ bookshelf.validator = new Validator();
 bookshelf.check = _.bind(bookshelf.validator.check, bookshelf.validator);
 bookshelf.schema = bookshelf.knex.schema;
 
-if (config.ldap){
+if (config.ldap && config.ldap.enabled){
+  LdapAuth  = require('ldapauth-fork'),
   bookshelf.ldapAuthenticate = function(user, pass, cb){
     bookshelf.ldap = new LdapAuth({
       url: 'ldap://' + config.ldap.host + ':' + config.ldap.port,
@@ -28,7 +28,6 @@ if (config.ldap){
       cb.apply(this, arguments);
     });
   }
-  console.log(bookshelf.ldap);
 }
 
 bookshelf.Model = bookshelf.Model.extend({

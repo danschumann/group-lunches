@@ -26,6 +26,10 @@ instanceMethods = {
     'notes', 
   ],
 
+  foods: function(){
+    return this.hasMany(require('./food').Foods);
+  },
+
   sanitize: function(){
     this.set('menu_url', sanitizeURL(this.get('menu_url')));
     return this;
