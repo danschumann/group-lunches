@@ -52,6 +52,9 @@ instanceMethods = {
   },
 
   validations: {
+    name: function(val){
+      check(val || '', 'Lunch name must be between 2 and 45 characters').len(2, 45); 
+    },
   },
 
   setupVoting: function(restaurant_ids){

@@ -25,6 +25,10 @@ module.exports = {
     Lunch.forge({id: req.params.lunch_id}).fetch()
     .then(function(_lunch){
       lunch = _lunch;
+      if (lunch.get('closed')){
+        req.error('The owner of this order has closed it');
+        return when.reject();
+      }
       order = Order.forge(attributes)
       return order.fetch();
     })
@@ -51,7 +55,11 @@ module.exports = {
     })
     .then(function(){
       res.redirect('/lunches/' + req.params.lunch_id + '/orders')
-    });
+    })
+    .otherwise(function(){
+      res.redirect('back');
+    })
+    ;
 
   },
   

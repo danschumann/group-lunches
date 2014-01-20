@@ -13,11 +13,13 @@ module.exports = {
 
     var user = this;
     var url = 'http://' + config.hostName + '/lunches/' + lunch.id + '/orders';
+    console.log('hi'.blue);
+    console.log(lunch.related('restaurant').get('name'));
 
     nodefn.call(sendMail, {
       to: this.formattedEmail(),
       from: config.mail.from,
-      subject: 'New Lunch',
+      subject: lunch.related('restaurant').get('name') + ' has won',
       text: 'Voting is closed on : ' + lunch.get('name') + ' at ' + url + '\n You either voted or this restaurant is in your notifications',
       html: 'Voting is closed for <a href="' + url + '">' + lunch.get('name') + '</a><br />You either voted or this restaurant is in your notifications',
     })

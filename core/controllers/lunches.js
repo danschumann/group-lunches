@@ -2,6 +2,7 @@ var
   bookshelf = require('../models/base'),
   Restaurants = require('../models/restaurant').Restaurants,
   RestaurantNotification = require('../models/restaurant_notification').RestaurantNotification,
+  RestaurantNotifications = require('../models/restaurant_notification').RestaurantNotifications,
   LunchRestaurant  = require('../models/lunch_restaurant').LunchRestaurant,
   Users = require('../models/user').Users,
   Lunches = require('../models/lunch').Lunches,
@@ -170,7 +171,7 @@ module.exports = {
     })
     .then(function(){
       console.log("HEY!~!!!!".red, lunch.id)
-      return lunch.load('lunch_restaurants')
+      return lunch.load(['lunch_restaurants', 'restaurant'])
     })
     .then(function(){
       console.log('lrs'.green);
@@ -187,13 +188,13 @@ module.exports = {
           console.log('SER'.green, user);
           if (!_.include(emailedIds, user.id)) {
             emailedIds.push(user.id);
-            user.mailers.notifyVotingClosed();
+            user.mailers.notifyVotingClosed(lunch);
           };
         });
       })
       console.log('RN'.red);
 
-      return RestaurantNotification.forge().fetch({
+      return RestaurantNotifications.forge().fetch({
         where:
           {restaurant_id: lunch.get('restaurant_id')},
         withRelated: ['user'],
