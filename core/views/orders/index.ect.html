@@ -33,7 +33,7 @@
       <h4><%- order.related('user').fullName() %></h4>
 
       <% order.related('foods').each (food) => : %>
-        <%- price += food.get('price') %>
+        <% price += food.get('price') %>
 
         <div class="food_item">
           <div class="price"><%- food.get('price').toFixed(2) %></div>
