@@ -87,13 +87,13 @@ module.exports = {
       attributes[key] = _.escape(val);
     });
 
-    var restaurant_ids = _.map(_.keys(req.body.restaurant_id), function(id){
+    var restaurant_ids = _.map(_.keys(req.body.restaurant_id || {}), function(id){
       return parseInt(id.substring(1));
     });
 
     Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: ['lunch_restaurants']})
     .then(function(lunch){
-      if ( lunch.get('user_id') == req.session.user_id || req.session.admin )
+      if ( lunch.get('user_id') == req.session.user_id || req.locals.user.get('admin') )
         return lunch.set(attributes).save()
       else {
         req.error('You must be the owner of this to edit it');
@@ -162,7 +162,7 @@ module.exports = {
     .then(function(){
 
       // Access
-      if (lunch.get('user_id') !== req.session.user_id && !req.session.admin) {
+      if (lunch.get('user_id') !== req.session.user_id && !req.locals.user.get('admin')) {
         req.error('You must be the lunch owner to tally the votes');
         return when.reject()
       };

@@ -20,7 +20,7 @@
     <div class="lunch_row" attr-lunch_id="<%- lunch.id %>">
       <h4> 
         <span class="created_user"><%- lunch.related('user').fullName() %></span>
-        <% if lunch.get('user_id') is @req.session.user_id : %>
+        <% if lunch.get('user_id') is @req.session.user_id or @req.locals.user.get('admin') : %>
           <a class="edit_lunch" href="/lunches/<%- lunch.id %>">Edit</a>
           <% if not lunch.get('restaurant_id') : %>
             <a
