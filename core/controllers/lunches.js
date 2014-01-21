@@ -137,7 +137,7 @@ module.exports = {
       lunch = _lunch;
 
       // Access
-      if (lunch.get('user_id') !== req.session.user_id || req.session.admin)
+      if (lunch.get('user_id') !== req.session.user_id && !req.locals.user.get('admin'))
         req.error('You must be the lunch owner to close the order');
       else {
         lunch.related('users').each(function(user){
@@ -208,6 +208,36 @@ module.exports = {
       })
       console.log('RN'.red);
 
+      return RestaurantNotifications.sendForRestaurant(lunch, emailedIds).then(function(){
+        res.redirect('/lunches/' + lunch.id + '/orders');
+      });
+
+    })
+    .otherwise(function(){
+      console.log('ERROR'.red, arguments)
+      res.redirect('back');
+    });    
+  },
+
+  foodArrived: function(req, res, next) {
+
+    lunch = Lunch.forge({id: req.params.lunch_id});
+
+    lunch.fetch({withRelated: ['users', 'restaurant']})
+    .then(function(){
+
+      // Access
+      if (lunch.get('user_id') !== req.session.user_id && !req.locals.user.get('admin')) {
+        req.error('You must be the lunch owner to tally the votes');
+        return when.reject()
+      };
+
+      lunch.related('users').each(function(user){
+        user.mailers.notifyFoodHere(lunch);
+      })
+
+    })
+    .then(function(){
       return RestaurantNotifications.sendForRestaurant(lunch, emailedIds).then(function(){
         res.redirect('/lunches/' + lunch.id + '/orders');
       });

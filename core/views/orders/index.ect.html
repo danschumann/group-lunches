@@ -9,6 +9,11 @@
     <div class="closed_message">
       <%- @content.order_closed %>
     </div>
+    <% if @lunch.get('user_id') == @req.session.user_id or @req.session.admin : %>
+      <a class="remove_link" href="/lunches/<%- @lunch.id %>/food_arrived" onclick="javascript: return confirm('click only once');">
+        SEND EMAIL FOOD HERE
+      </a>
+    <% end %>
   <% else : %>
     <div class="add_food_container">
       <a class="create_link" href="/lunches/<%- @lunch.id %>/foods/new">

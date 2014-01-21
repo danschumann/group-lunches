@@ -4,6 +4,8 @@ var
   Lunch  = require('../models/lunch').Lunch,
   base;
 
+require('../lib/mysql_date_format');
+
 base = {
   index: function(req, res, next){
     if (req.locals.user && !req.locals.user.get('email')) {
@@ -20,7 +22,9 @@ base = {
       //
       // Home 
       //
-      Lunches.forge().query('where', 'lunches.closed', 'is', null)
+      cutoff = new Date
+      cutoff.setHours(cutoff.getHours() - 8)
+      Lunches.forge().query('where', 'created_at', '>', cutoff.toMysqlFormat())
       .fetch({withRelated: ['restaurants', 'restaurant', 'user']})
       .then(function(lunches){
         console.log(lunches);

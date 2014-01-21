@@ -30,6 +30,27 @@ module.exports = {
       console.log('Failed Mail'.red, arguments, user.formattedEmail());
     });
   },
+
+  notifyFoodHere: function(lunch){
+
+    var user = this;
+    var url = 'http://' + config.hostName + '/lunches/' + lunch.id + '/orders';
+
+    nodefn.call(sendMail, {
+      to: this.formattedEmail(),
+      from: config.mail.from,
+      subject: lunch.related('restaurant').get('name') + ' is here',
+      text: 'Food is here',
+      html: 'Food is here',
+    })
+    .then(function(){
+      console.log('Sent Mail'.green);
+    })
+    .otherwise(function(){
+      console.log('Failed Mail'.red, arguments, user.formattedEmail());
+    });
+  },
+
   notifyVotingClosed: function(lunch){
 
     var user = this;

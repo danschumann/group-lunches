@@ -62,6 +62,7 @@ module.exports = function(app){
 
   app.get  ('/lunches/:lunch_id/tally', authentication.user, user.load, controllers.lunches.tally);
   app.get  ('/lunches/:lunch_id/close', authentication.user, user.load, controllers.lunches.close);
+  app.get  ('/lunches/:lunch_id/food_arrived', authentication.user, user.load, controllers.lunches.foodArrived);
 
   app.get  ('/lunches/:lunch_id/orders', authentication.user, user.load, controllers.lunches.show);
 
@@ -70,6 +71,7 @@ module.exports = function(app){
   app.post ('/lunches/:lunch_id/foods/:food_id', authentication.user, user.load, controllers.foods.update);
   app.get  ('/lunches/:lunch_id/foods/:food_id/destroy', authentication.user, user.load, controllers.foods.destroy);
   app.post ('/lunches/:lunch_id/foods/?', authentication.user, user.load, controllers.foods.create);
+
 
   app.post ('/votes/?', authentication.user, user.load, controllers.votes.create);
 
