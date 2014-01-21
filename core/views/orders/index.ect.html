@@ -1,6 +1,6 @@
 <h1>
   <a class="create_link" href="<%- @lunch.related('restaurant').get('menu_url') %>">
-    <%- @lunch.related('restaurant').get('name') %>
+    <%- @lunch.related('restaurant').get('name') %> Menu
   </a>
 </h1>
 
@@ -21,13 +21,16 @@
     <% end %>
   <% end %>
 
+  <% price = 0 %>
   <% @orders.each (order) => : %>
     <div class="order_item">
       <h4><%- order.related('user').fullName() %></h4>
 
       <% order.related('foods').each (food) => : %>
+        <%- price += food.get('price') %>
+
         <div class="food_item">
-          <div class="price"><%- food.get('price') %></div>
+          <div class="price"><%- food.get('price').toFixed(2) %></div>
           <div class="name">
             <strong><%- food.get('name') %></strong>
             <% if !@lunch.get('closed') and (order.get('user_id') is @req.session.user_id or @req.session.admin): %>
@@ -43,11 +46,26 @@
       <% end %>
 
       <div class="food_item">
-        <div class="price"><%- order.get('price') %></div>
+        <div class="price"><%- (order.get('price') * .055).toFixed(2)  %></div>
+        <div class="name">tax</div>
+      </div>
+      <div class="food_item">
+        <div class="price"><%- (order.get('price') * 1.055).toFixed(2) %></div>
         <div class="name">total</div>
       </div>
 
     </div>
   <% end %>
+  <div class="order_item">
+    <h2>Order</h2>
+    <div class="food_item">
+      <div class="price"><%- (price * .055).toFixed(2) %></div>
+      <div class="name">tax</div>
+    </div>
+    <div class="food_item">
+      <div class="price"><%- (price * 1.055).toFixed(2) %></div>
+      <div class="name">total</div>
+    </div>
+  </div>
 
 </div>

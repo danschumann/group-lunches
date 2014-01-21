@@ -24,7 +24,6 @@ if (config.ldap && config.ldap.enabled){
       searchFilter: 'sAMAccountName={{username}}',
     });
     bookshelf.ldap.authenticate(user, pass, function(){
-      console.log(arguments);
       bookshelf.ldap.close(function(){})
       cb.apply(this, arguments);
     });
