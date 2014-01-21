@@ -45,6 +45,27 @@ RestaurantNotification = bookshelf.Model.extend(instanceMethods, classMethods);
 RestaurantNotifications = bookshelf.Collection.extend({
   model: RestaurantNotification,
   tableName: 'restaurant_notifications',
+},{
+  sendForRestaurant: function(lunch, alreadySent){
+    alreadySent = alreadySent || [];
+    var restaurant_id = lunch.get('restaurant_id');
+    return RestaurantNotifications.forge().fetch({
+      where:
+        {restaurant_id: restaurant_id},
+      withRelated: ['user'],
+    })
+    .then(function(rns){
+      rns.each(function(rn){
+        var user = rn.related('user');
+        if (!_.include(alreadySent, user.id)) {
+          alreadySent.push(user.id)
+          user.mailers.notifyVotingClosed(lunch)
+        }
+      });
+    })
+  },
+
+  
 });
     
 module.exports = {RestaurantNotification: RestaurantNotification, RestaurantNotifications: RestaurantNotifications};

@@ -24,8 +24,13 @@ module.exports = {
     if (_.size(req.body.restaurant_id) == 1)
       attributes.restaurant_id = _.keys(req.body.restaurant_id)[0].substring(1)
 
-    Lunch.forge(attributes).save()
-    .then(function(lunch){
+    var lunch = Lunch.forge(attributes);
+    lunch.save()
+    .then(function(){
+      if (lunch.get('restaurant_id'))
+        lunch.load('restaurant')
+    })
+    .then(function(){
       if (lunch && lunch.id) {
         req.notification('Created new lunch');
         return lunch.setupVoting(req.body.restaurant_id);
@@ -200,24 +205,10 @@ module.exports = {
       })
       console.log('RN'.red);
 
-      return RestaurantNotifications.forge().fetch({
-        where:
-          {restaurant_id: lunch.get('restaurant_id')},
-        withRelated: ['user'],
-      })
-
-    })
-    .then(function(rns){
-      
-      rns.each(function(rn){
-        console.log('RN'.green, rn.related('user'));
-        var user = rn.related('user');
-        if (!_.include(emailedIds, user.id)) {
-          emailedIds.push(user.id)
-          user.mailers.notifyVotingClosed(lunch)
-        }
+      return RestaurantNotifications.sendForRestaurant(lunch, emailedIds).then(function(){
+        res.redirect('/lunches/' + lunch.id + '/orders');
       });
-      res.redirect('/lunches/' + lunch.id + '/orders');
+
     })
     .otherwise(function(){
       console.log('ERROR'.red, arguments)

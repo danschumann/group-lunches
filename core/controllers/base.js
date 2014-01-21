@@ -17,13 +17,13 @@ base = {
       res.redirect('/account');
 
     } else if ( req.session.user_id ){
-
       //
       // Home 
       //
-
-      Lunches.forge().fetch({withRelated: ['restaurants', 'restaurant', 'user']})
+      Lunches.forge().query('where', 'lunches.closed', 'is', null)
+      .fetch({withRelated: ['restaurants', 'restaurant', 'user']})
       .then(function(lunches){
+        console.log(lunches);
         res.view('home', {lunches: lunches});
       });
     } else

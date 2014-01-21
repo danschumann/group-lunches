@@ -1,6 +1,7 @@
 var
   Lunch, Lunches,
   columns, instanceMethods, classMethods, options,
+  RestaurantNotifications = require('../models/restaurant_notification').RestaurantNotifications,
 
   config     = require('../lib/config-loader'),
   bookshelf  = require('./base'),
@@ -11,9 +12,21 @@ var
   check      = bookshelf.check,
   nodefn     = require('when/node/function');
 
+require('../lib/mysql_date_format');
+
 instanceMethods = {
 
   tableName: 'lunches',
+
+  initialize: function(){
+
+    this.on('creating', function(){
+      this.set('created_at', (new Date).toMysqlFormat());
+    }, this);
+
+    bookshelf.Model.prototype.initialize.apply(this, arguments);
+
+  },
 
   // Email functions can take up a lot of room
   permittedAttributes: [
@@ -22,6 +35,7 @@ instanceMethods = {
     'name', 
     'closed', 
     'restaurant_id', 
+    'created_at', 
   ],
 
   restaurants: function(){
@@ -72,7 +86,9 @@ instanceMethods = {
       return require('./user').Users.forge().fetch({where: {notify_start_vote: true}});
     })
     .then(function(users){
-      if (_.keys(restaurant_ids).length > 1)
+      if (lunch.get('restaurant_id'))
+        RestaurantNotifications.sendForRestaurant(lunch);
+      else
         users.each(function(user){
           user.mailers.notifyVote(lunch);
         });

@@ -66,6 +66,10 @@ instanceMethods = {
     },
   },
 
+  restaurant_notifications: function(){
+    return this.hasMany(require('./restaurant_notification').RestaurantNotifications);
+  },
+
   formattedEmail: function(){
     return this.get('first_name') + ' ' + this.get('last_name') + ' <' + this.get('email') + '>';
   },
