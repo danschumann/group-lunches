@@ -4,6 +4,10 @@
 
   <h3><%- (@restaurant? && 'Edit') || 'New' %> Restaurant</h3>
 
+  <% if @req.body.name then @req.body.name = @_.escape @req.body.name %>
+  <% if @req.body.menu_url then @req.body.menu_url = @_.escape @req.body.menu_url %>
+  <% if @req.body.notes then @req.body.menu_url = @_.escape @req.body.notes %>
+
   <div class="restaurant_inputs">
     <input value="<%- @req.body.name ? @restaurant?.name %>" autofocus name="name" placeholder="name" />
   </div>

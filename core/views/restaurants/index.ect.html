@@ -4,7 +4,9 @@
   <script src="/javascripts/restaurant_vote_notification.js"></script>
 <% end %>
 
-<a href="/restaurants/new">Create Restaurant</a>
+<% if @req.locals.user.get('admin') : %>
+  <a href="/restaurants/new">Create Restaurant</a>
+<% end %>
 
 <div class="restaurants">
   <div class="clearfix">
@@ -20,7 +22,9 @@
       <input type="checkbox" data-id="<%- restaurant.id %>" <%- restaurant.related('notifications')?.at(0) && 'checked' %> />
     </div>
     <div class="restaurant_row">
-      <a class="edit_restaurant" href="/restaurants/<%- restaurant.id %>">Edit</a>
+      <% if @req.locals.user.get('admin') : %>
+        <a class="edit_restaurant" href="/restaurants/<%- restaurant.id %>">Edit</a>
+      <% end %>
       <h4>
         <a href="<%- restaurant.get('menu_url') %>">
           <%- restaurant.get('name') %>

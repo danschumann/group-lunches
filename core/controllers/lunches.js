@@ -14,7 +14,10 @@ var
 module.exports = {
 
   create: function(req, res, next){
+
     var attributes = { name: _.escape(req.body.name), user_id: req.body.user_id }
+
+    if (!attributes.name) attributes.name = 'untitled';
 
     if (!req.body.restaurant_id || !_.size(req.body.restaurant_id)) {
       req.error('You must pick at least one restaurant');
@@ -34,7 +37,7 @@ module.exports = {
       if (lunch && lunch.id) {
         req.notification('Created new lunch');
         return lunch.setupVoting(req.body.restaurant_id);
-      }
+      };
     })
     .then(function(){
       res.redirect('/')
