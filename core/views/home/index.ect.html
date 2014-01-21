@@ -38,10 +38,16 @@
       </h4>
 
       <% if lunch.get('restaurant_id') : %>
+        <% if lunch.get('closed') : %>
+          <h5> Too late to add more food.</h4>
+          <h3> <%- lunch.related('restaurant').get('name') %> is being called/picked up! </h3>
+          <a class="order_link" href="/lunches/<%- lunch.id %>/orders">View Order</a>
 
-        <h5> The results are in.</h4>
-        <h3> <%- lunch.related('restaurant').get('name') %> is the winner! </h3>
-        <a class="order_link" href="/lunches/<%- lunch.id %>/orders">Order</a>
+        <% else : %>
+          <h5> The results are in.</h4>
+          <h3> <%- lunch.related('restaurant').get('name') %> is the winner! </h3>
+          <a class="order_link" href="/lunches/<%- lunch.id %>/orders">Order</a>
+        <% end %>
 
       <% else : %>
         <% @lunch = lunch %>
