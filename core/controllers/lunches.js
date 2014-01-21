@@ -122,16 +122,22 @@ module.exports = {
 
     var emailedIds = [],
     lunch;
+    console.log("forward".zebra)
 
-    Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: ['restaurants']})
+    Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: ['restaurant', 'users']})
     .then(function(_lunch){
       lunch = _lunch;
 
       // Access
       if (lunch.get('user_id') !== req.session.user_id || req.session.admin)
         req.error('You must be the lunch owner to close the order');
-      else
+      else {
+        lunch.related('users').each(function(user){
+          console.log('userino'.blue, user)
+          user.mailers.notifyClosed(lunch);
+        });
         return lunch.set('closed', true).save()
+      }
     })
     .then(function(){
 

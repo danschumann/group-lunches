@@ -9,6 +9,27 @@ module.exports = {
     // todo
   },
 
+  notifyClosed: function(lunch){
+
+    var user = this;
+    var url = 'http://' + config.hostName + '/lunches/' + lunch.id + '/orders';
+    console.log('hi'.blue);
+    console.log(lunch.related('restaurant').get('name'));
+
+    nodefn.call(sendMail, {
+      to: this.formattedEmail(),
+      from: config.mail.from,
+      subject: lunch.related('restaurant').get('name') + ' is being called',
+      text: 'You can no longer change your order for ' + lunch.get('name') + ' at ' + url + '\n It\'s being called in / picked up',
+      html: 'You can no longer change your order for <a href="' + url + '">' + lunch.get('name') + '</a>.  It\'s being called in / picked up ',
+    })
+    .then(function(){
+      console.log('Sent Mail'.green);
+    })
+    .otherwise(function(){
+      console.log('Failed Mail'.red, arguments, user.formattedEmail());
+    });
+  },
   notifyVotingClosed: function(lunch){
 
     var user = this;
