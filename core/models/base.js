@@ -21,9 +21,10 @@ if (config.ldap && config.ldap.enabled){
       adminDn: config.ldap.admin_user,
       adminPassword: config.ldap.admin_password,
       searchBase: config.ldap.base,
-      searchFilter: 'mail={{username}}@sw-network.com',
+      searchFilter: 'sAMAccountName={{username}}',
     });
     bookshelf.ldap.authenticate(user, pass, function(){
+      console.log(arguments);
       bookshelf.ldap.close(function(){})
       cb.apply(this, arguments);
     });
