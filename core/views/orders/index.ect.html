@@ -10,9 +10,15 @@
       <%- @content.order_closed %>
     </div>
   <% else : %>
-    <a class="create_link" href="/lunches/<%- @lunch.id %>/foods/new">
-      Add Food
-    </a>
+    <div class="add_food_container">
+      <a class="create_link" href="/lunches/<%- @lunch.id %>/foods/new">
+        Add Food Item
+      </a>
+      <div>
+        <strong>Add each item separately</strong>
+        <br />( i.e. if you get entree and side, save one then click 'Add Food Item' again for the 2nd )
+      </div>
+    </div>
 
     <% if @lunch.get('user_id') == @req.session.user_id or @req.session.admin : %>
       <a class="remove_link" href="/lunches/<%- @lunch.id %>/close">
