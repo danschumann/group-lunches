@@ -9,10 +9,10 @@
   <h3><a href="/lunches/<%- @lunch.id %>/orders"><%- @lunch.get('name') %></a></h3>
   <div class="previous_foods">
     <h4>
-      Previous orders at
-      <a target="_blank" href="<%- @lunch.related('restaurant').get('menu_url') %>">
-        <%- @lunch.related('restaurant').get('name') %>
-      </a>
+      Previous orders at <%- @lunch.related('restaurant').get('name') %>
+      (<a target="_blank" href="<%- @lunch.related('restaurant').get('menu_url') %>">
+        menu
+      </a>)
     </h4>
     <% @lunch.related('restaurant').related('foods').each (food) => : %>
       <div class="previous_food">
