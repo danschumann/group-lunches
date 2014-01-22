@@ -10,7 +10,10 @@ module.exports = {
   post: function(req, res, next){
     var checkboxes = ['notify_start_vote', 'notify_end_vote', 'notify_pickup'];
 
-    var attributes = _.pick(req.body, 'first_name', 'last_name');
+    var attributes = {
+      first_name: _.escape(req.body.first_name),
+      last_name: _.escape(req.body.last_name),
+    };
 
     _.each(checkboxes, function(key){
       attributes[key] = (req.body[key] == 'on')
