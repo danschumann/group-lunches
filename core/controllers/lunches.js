@@ -87,6 +87,8 @@ module.exports = {
       attributes[key] = _.escape(val);
     });
 
+    if (!attributes.name) attributes.name = 'untitled';
+
     var restaurant_ids = _.map(_.keys(req.body.restaurant_id || {}), function(id){
       return parseInt(id.substring(1));
     });
@@ -130,7 +132,6 @@ module.exports = {
 
     var emailedIds = [],
     lunch;
-    console.log("forward".zebra)
 
     Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: ['restaurant', 'users']})
     .then(function(_lunch){
@@ -166,46 +167,40 @@ module.exports = {
         return when.reject()
       };
 
-      var max = {id: [], votes: -1};
+      // Find winner
+      var winning = {id: [], votes: -1};
       lunch.related('restaurants').each(function(restaurant){
-        if (restaurant.pivot.get('votes') == max.votes) {
-          max.id.push(restaurant.id);
-        } else if (restaurant.pivot.get('votes') > max.votes) {
-          max.id = [restaurant.id];
-          max.votes = restaurant.pivot.get('votes');
+        if (restaurant.pivot.get('votes') == winning.votes) {
+          winning.id.push(restaurant.id);
+        } else if (restaurant.pivot.get('votes') > winning.votes) {
+          winning.id = [restaurant.id];
+          winning.votes = restaurant.pivot.get('votes');
         };
       });
-
       // Picks a random id of all the ones that tied for top place
-      var id = max.id[Math.floor(max.id.length * Math.random() - .0000001)];
+      var winnerId = winning.id[Math.floor(winning.id.length * Math.random() - .0000001)];
 
-      console.log('ID'.red, id);
-      return lunch.set('restaurant_id', id).save();
+      return lunch.set('restaurant_id', winnerId).save();
     })
     .then(function(){
-      console.log("HEY!~!!!!".red, lunch.id)
       return lunch.load(['lunch_restaurants', 'restaurant'])
     })
     .then(function(){
-      console.log('lrs'.green);
       return when.map(lunch.related('lunch_restaurants').map(function(lr){
         return lr.load('voters')
-
       }));
 
     })
     .then(function(){
       lunch.related('lunch_restaurants').each(function(lr){
-        console.log('lr'.green, lr.toJSON(), lr, lr.related('voters'));
+
         lr.related('voters').each(function(user){
-          console.log('SER'.green, user);
           if (!_.include(emailedIds, user.id)) {
             emailedIds.push(user.id);
             user.mailers.notifyVotingClosed(lunch);
           };
         });
       })
-      console.log('RN'.red);
 
       return RestaurantNotifications.sendForRestaurant(lunch, emailedIds).then(function(){
         res.redirect('/lunches/' + lunch.id + '/orders');
@@ -213,7 +208,6 @@ module.exports = {
 
     })
     .otherwise(function(){
-      console.log('ERROR'.red, arguments)
       res.redirect('back');
     });    
   },
@@ -246,7 +240,6 @@ module.exports = {
       res.redirect('/lunches/' + lunch.id + '/orders');
     })
     .otherwise(function(){
-      console.log('ERROR'.red, arguments)
       res.redirect('back');
     });    
   },
