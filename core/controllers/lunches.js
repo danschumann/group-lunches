@@ -232,16 +232,19 @@ module.exports = {
         return when.reject()
       };
 
+      if (lunch.get('food_arrived')) {
+        req.error('The "food has arrived" email has already been sent out');
+        return when.reject()
+      };
+
       lunch.related('users').each(function(user){
         user.mailers.notifyFoodHere(lunch);
       })
+      return lunch.set('food_arrived', true).save();
 
     })
     .then(function(){
-      return RestaurantNotifications.sendForRestaurant(lunch, emailedIds).then(function(){
-        res.redirect('/lunches/' + lunch.id + '/orders');
-      });
-
+      res.redirect('/lunches/' + lunch.id + '/orders');
     })
     .otherwise(function(){
       console.log('ERROR'.red, arguments)

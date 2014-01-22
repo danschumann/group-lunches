@@ -34,6 +34,7 @@ instanceMethods = {
     'user_id', 
     'name', 
     'closed', 
+    'food_arrived', 
     'restaurant_id', 
     'created_at', 
   ],
