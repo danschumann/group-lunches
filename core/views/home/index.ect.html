@@ -38,7 +38,11 @@
       </h4>
 
       <% if lunch.get('restaurant_id') : %>
-        <% if lunch.get('closed') : %>
+        <% if lunch.get('food_arrived') : %>
+          <h5> Waaay too late to order.</h4>
+          <h3> <%- lunch.related('restaurant').get('name') %> food is in the building! </h3>
+          <a class="order_link" href="/lunches/<%- lunch.id %>/orders">View Order</a>
+        <% else if lunch.get('closed') : %>
           <h5> Too late to add more food.</h4>
           <h3> <%- lunch.related('restaurant').get('name') %> is being called/picked up! </h3>
           <a class="order_link" href="/lunches/<%- lunch.id %>/orders">View Order</a>
