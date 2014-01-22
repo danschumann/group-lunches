@@ -91,9 +91,7 @@ instanceMethods = {
         RestaurantNotifications.sendForRestaurant(lunch);
       else
         users.each(function(user){
-          console.log('NO ONE WHAT'.red, user);
-          if (user.get('notify_start_vote'))
-            user.mailers.notifyVote(lunch);
+          user.mailers.notifyVote(lunch);
         });
     });
   },
