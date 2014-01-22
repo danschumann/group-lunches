@@ -19,7 +19,7 @@
         <input class="price" type="hidden" value="<%- food.get('price') %>" />
         <input class="name" type="hidden" value="<%- food.get('name') %>" />
         <div class="price">
-          <%- food.get('price') %>
+          <%- food.get('price')?.toFixed?(2) %>
         </div>
         <div class="name">
           <%- food.get('name') %>
@@ -39,7 +39,7 @@
   </div>
   
   <div class="restaurant_inputs">
-    <input value="<%- @body?.price ? @food?.get('price') %>" name="price" placeholder="price" />
+    <input value="<%- @body?.price?.toFixed?(2) ? @food?.get('price')?.toFixed?(2) %>" name="price" placeholder="price" />
   </div>
 
   <input type="submit" value="Save" />
