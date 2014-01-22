@@ -98,6 +98,9 @@ module.exports = {
           price: price,
         }).save();
     })
+    .then(function(food){
+      return food.related('order').calculate()
+    })
     .then(function(){
       res.redirect('/lunches/' + req.params.lunch_id + '/orders');
     });
