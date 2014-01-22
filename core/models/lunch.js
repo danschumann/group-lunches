@@ -84,14 +84,16 @@ instanceMethods = {
       }).save()
     })
     .then(function(){
-      return require('./user').Users.forge().fetch({where: {notify_start_vote: true}});
+      return require('./user').Users.forge().query({where: {notify_start_vote: true}}).fetch();
     })
     .then(function(users){
       if (lunch.get('restaurant_id'))
         RestaurantNotifications.sendForRestaurant(lunch);
       else
         users.each(function(user){
-          user.mailers.notifyVote(lunch);
+          console.log('NO ONE WHAT'.red, user);
+          if (user.get('notify_start_vote'))
+            user.mailers.notifyVote(lunch);
         });
     });
   },

@@ -141,14 +141,13 @@ module.exports = {
         req.error('You must be the lunch owner to close the order');
       else {
         lunch.related('users').each(function(user){
-          console.log('userino'.blue, user)
-          user.mailers.notifyClosed(lunch);
+          if (user.get('notify_pickup'))
+            user.mailers.notifyClosed(lunch);
         });
         return lunch.set('closed', true).save()
       }
     })
     .then(function(){
-
       res.redirect('/lunches/' + lunch.id + '/orders');
     });
   },
