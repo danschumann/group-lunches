@@ -3,8 +3,8 @@
 logo-blue = #214579
 light-blue = #2f5c96
 
-logo-red = #794521
-light-red = #965c2f
+logo-red = #D46D1E
+light-red = #FF8425
 
 gray-link = #B8CFB6
 
@@ -588,7 +588,6 @@ h2 {
   &:hover
     background: light-red
 
-
 .order_link
   background #DD914C
   &:hover
@@ -607,7 +606,7 @@ h2 {
   float right
 
 .restaurant_row, .order_item
-  max-width: 540px
+  max-width: 600px
   text-align left
   background white
   margin 2px auto
@@ -619,6 +618,11 @@ h2 {
     color: blue
 
 .order_item
+  border 0
+  padding: 20px
+  border-radius 29px
+  box-shadow: 2px 2px #C5A2A2
+  margin: 9px auto
   h4
     margin-top 0
 
@@ -626,7 +630,7 @@ h2 {
     float right
 
   .food_item
-    border-top: 1px solid #DDD
+    border-top: 2px solid #ffd700
     clearfix()
     padding: 10px 0
     .edit_link
@@ -654,10 +658,13 @@ h2 {
     width: 320px
 
 .closed_message, .food_arrived_message
-  background: #E9BEBE
+  background: #FF9283
+  color: #8A4949
+  box-shadow: 2px 2px #8A4949
+  text-shadow 1px 1px #CACACA
   margin: 10px auto
   padding: 10px 15px
-  width: 640px
+  max-width: 600px
 
 .food_arrived_message
   background: #BEE9BE
@@ -712,24 +719,30 @@ h2 {
 .lunch_restaurant_description
 
   background white
-  border 2px solid #FAD1D1
+  box-shadow 1px 1px #F7B0B0
+  border 1px solid #FD8D8D
   text-align left
   margin 20px auto
   max-width: 600px
   a
     float right
-    margin: 10px
+    margin: 7px 4px
     background: #FF7C7C
+    text-shadow: 1px 1px #CC0404
     &:hover
       background: #F5B2B2
   h2
-    margin-top: 5px
+    margin-top: 3px
     padding 10px
     background #FD4D4D
     color white
+    text-shadow: 1px 2px #D12424
   
   .description_container
     clear both
     padding 5px
   .description_content
     padding 10px
+
+.lunch_header
+  text-shadow 1px 1px #FFF

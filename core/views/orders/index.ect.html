@@ -1,3 +1,21 @@
+<% if @lunch.get('user_id') == @req.session.user_id or @req.session.admin : %>
+  <% if @lunch.get('closed') : %>
+    <% if @lunch.get('food_arrived') : %>
+      <div class="food_arrived_message">
+        YOU TOLD EVERYONE "FOOD IS HERE". HOORAY!
+      </div>
+    <% else : %>
+      <a class="remove_link" href="/lunches/<%- @lunch.id %>/food_arrived" onclick="javascript: return confirm('click only once');">
+        SEND EMAIL FOOD HERE
+      </a>
+    <% end %>
+  <% else : %>
+    <a class="remove_link" href="/lunches/<%- @lunch.id %>/close" onclick="javascript: return confirm('This will stop anyone from adding anything to the order')">
+      Close Order
+    </a>
+  <% end %>
+<% end %>
+
 <div class="lunch_restaurant_description">
   <a class="create_link" href="<%- @lunch.related('restaurant').get('menu_url') %>" target="_blank">
     Menu
@@ -20,17 +38,6 @@
     <div class="closed_message">
       <%- @content.order_closed %>
     </div>
-    <% if @lunch.get('user_id') == @req.session.user_id or @req.session.admin : %>
-      <% if @lunch.get('food_arrived') : %>
-        <div class="food_arrived_message">
-          YOU TOLD EVERYONE "FOOD IS HERE". HOORAY!
-        </div>
-      <% else : %>
-        <a class="remove_link" href="/lunches/<%- @lunch.id %>/food_arrived" onclick="javascript: return confirm('click only once');">
-          SEND EMAIL FOOD HERE
-        </a>
-      <% end %>
-    <% end %>
   <% else : %>
     <div class="add_food_container">
       <a class="create_link" href="/lunches/<%- @lunch.id %>/foods/new">
@@ -41,12 +48,6 @@
         <br />Add each item separately
       </div>
     </div>
-
-    <% if @lunch.get('user_id') == @req.session.user_id or @req.session.admin : %>
-      <a class="remove_link" href="/lunches/<%- @lunch.id %>/close" onclick="javascript: return confirm('This will stop anyone from adding anything to the order')">
-        Close Order
-      </a>
-    <% end %>
   <% end %>
 
   <% price = 0 %>

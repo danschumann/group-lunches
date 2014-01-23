@@ -1,6 +1,6 @@
 <% extend 'layout.ect.html' %>
 
-<h1><%- @lunch.get('name') %></h1>
+<h1 class="lunch_header"><%- @lunch.get('name') %></h1>
 
 <% if @lunch.get('restaurant_id') : %>
   <% console.log 'no'.red %>
