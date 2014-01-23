@@ -1,8 +1,19 @@
-<h1>
+<div class="lunch_restaurant_description">
   <a class="create_link" href="<%- @lunch.related('restaurant').get('menu_url') %>" target="_blank">
-    <%- @lunch.related('restaurant').get('name') %> Menu
+    Menu
   </a>
-</h1>
+  <h2>
+    <%- @lunch.related('restaurant').get('name') %> 
+  </h2>
+  <% if @lunch.related('restaurant').get('notes') : %>
+    <div class="description_container">
+      <strong>Restaurant Description:</script>
+      <div class="description_content">
+        <%- @lunch.related('restaurant').get('notes') %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <div class="orders">
   <% if @lunch.get('closed') : %>
