@@ -21,9 +21,10 @@ module.exports = {
 
   admin: function(req, res, next){
     console.log(req.session);
-    if ( !req.session.admin )
+    if ( !req.locals.user || !req.locals.user.get('admin') ) {
+      req.error('You must be an admin');
       res.redirect('/');
-    else
+    } else
       next();
   },
 

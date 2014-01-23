@@ -48,11 +48,11 @@ module.exports = function(app){
   app.post ('/email', authentication.user, user.load, controllers.email.post);
 
   app.get  ('/restaurants', authentication.user, user.load, controllers.restaurants.index);
-  app.post ('/restaurants', authentication.user, user.load, controllers.restaurants.create);
+  app.post ('/restaurants', user.load, authentication.admin, controllers.restaurants.create);
 
   app.get  ('/restaurants/new', authentication.user, user.load, controllers.restaurants.edit);
   app.get  ('/restaurants/:restaurant_id', authentication.user, user.load, controllers.restaurants.edit);
-  app.post ('/restaurants/:restaurant_id', authentication.user, user.load, controllers.restaurants.update);
+  app.post ('/restaurants/:restaurant_id', user.load, authentication.admin, controllers.restaurants.update);
 
   app.post ('/lunches', authentication.user, user.load, controllers.lunches.create);
 

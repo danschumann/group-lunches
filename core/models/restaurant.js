@@ -37,7 +37,8 @@ instanceMethods = {
   sanitize: function(){
     this.set('name', _.escape(this.get('name')));
     this.set('menu_url', sanitizeURL(_.escape(this.get('menu_url'))));
-    this.set('notes', _.escape(this.get('notes')));
+    // Since only admins can edit this, we let them use html
+    this.set('notes', this.get('notes'));
     return this;
   },
 

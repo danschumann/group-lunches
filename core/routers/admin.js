@@ -17,6 +17,6 @@ var
 
 module.exports = function(app){
 
-  app.get  ('/admin', authentication.admin, adminControllers.index);
+  app.get  ('/admin', user.load, authentication.admin, adminControllers.index);
 
 };
