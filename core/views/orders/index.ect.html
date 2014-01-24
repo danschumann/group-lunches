@@ -1,10 +1,6 @@
-<% if @lunch.get('user_id') == @req.session.user_id or @req.session.admin : %>
+<% if @lunch.get('user_id') == @req.session.user_id or @req.locals.user.get('admin') : %>
   <% if @lunch.get('closed') : %>
-    <% if @lunch.get('food_arrived') : %>
-      <div class="food_arrived_message">
-        YOU TOLD EVERYONE "FOOD IS HERE". HOORAY!
-      </div>
-    <% else : %>
+    <% if !@lunch.get('food_arrived') : %>
       <a class="remove_link" href="/lunches/<%- @lunch.id %>/food_arrived" onclick="javascript: return confirm('click only once');">
         SEND EMAIL FOOD HERE
       </a>
@@ -34,7 +30,11 @@
 </div>
 
 <div class="orders">
-  <% if @lunch.get('closed') : %>
+  <% if @lunch.get('food_arrived') : %>
+    <div class="food_arrived_message">
+      FOOD IS HERE. HOORAY!
+    </div>
+  <% else if @lunch.get('closed') : %>
     <div class="closed_message">
       <%- @content.order_closed %>
     </div>
@@ -62,7 +62,7 @@
           <div class="price"><%- food.get('price').toFixed(2) %></div>
           <div class="name">
             <strong><%- food.get('name') %></strong>
-            <% if !@lunch.get('closed') and (order.get('user_id') is @req.session.user_id or @req.session.admin): %>
+            <% if !@lunch.get('closed') and (order.get('user_id') is @req.session.user_id or @req.locals.user.get('admin')) : %>
               <a class="edit_link" href="/lunches/<%- @lunch.id %>/foods/<%- food.id %>">edit</a>
               <a class="edit_link" 
                 onclick="javascript: return confirm('are you sure?');" 
