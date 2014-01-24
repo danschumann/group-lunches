@@ -114,8 +114,11 @@ module.exports = {
     if(req.body.notes) req.body.notes = _.escape(req.body.notes);
     if(req.body.price) req.body.price = parseFloat(req.body.price);
 
+    console.log('hey'.blue);
     Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: [
-      {'restaurant.foods': function(qb){ qb.limit(20).orderBy('id', 'desc'); }},
+      {'restaurant.foods': function(qb){
+        qb.groupBy('foods.name').limit(20).orderBy('id', 'desc');
+      }},
     ]})
     .then(function(_lunch){
       lunch = _lunch;
