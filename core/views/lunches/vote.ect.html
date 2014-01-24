@@ -1,10 +1,20 @@
+<% max = 1 %>
+<% @lunch.related('restaurants').each (restaurant) => : %>
+  <% max = Math.max restaurant.pivot.get('votes'), max %>
+<% end %>
 <% @lunch.related('restaurants').each (restaurant) => : %>
   <form class="vote_section" action="/votes" method="post">
+    <div class="vote_progressbar">
+      <div class="vote_progressbar_inner"
+        style="width: <%- restaurant.pivot.get('votes') / max * 100 %>px <%- if restaurant.pivot.get('votes') is max then '; background: #1FEB2F;' else '' %>">
+      </div>
+    </div>
     Votes: 
     <a href="<%- restaurant.get('menu_url') %>">
       <%- restaurant.get('name') %>
     </a>
     <%- restaurant.pivot.get('votes') %>
+    <a href="/votes/?lunch_restaurant_id=<%- restaurant.pivot.id %>" style="display: none">votes list</a>
     <input type="hidden" name="lunch_restaurant_id" value="<%- restaurant.pivot.id %>" />
     <input type="submit" value="vote" /> 
   </form>
