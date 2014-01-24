@@ -23,6 +23,10 @@ instanceMethods = {
     'user_id', 
   ],
 
+  user: function(){
+    return this.belongsTo(require('./user').User);
+  },
+
   validations: {
   },
 

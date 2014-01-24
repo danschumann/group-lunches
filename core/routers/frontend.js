@@ -73,6 +73,7 @@ module.exports = function(app){
   app.post ('/lunches/:lunch_id/foods/?', authentication.user, user.load, controllers.foods.create);
 
 
+  app.get  ('/votes/?', authentication.user, user.load, controllers.votes.index);
   app.post ('/votes/?', authentication.user, user.load, controllers.votes.create);
 
 };

@@ -1,0 +1,7 @@
+<% extend 'layout.ect.html' %>
+
+<% @votes.each (vote) => :%>
+  <div>
+    <%- vote.related('user').fullName() %>
+  </div>
+<% end %>

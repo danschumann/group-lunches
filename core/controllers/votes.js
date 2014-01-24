@@ -2,9 +2,25 @@ var
   bookshelf = require('../models/base'),
   Restaurants = require('../models/restaurant').Restaurants,
   LunchRestaurant  = require('../models/lunch_restaurant').LunchRestaurant,
+  Votes  = require('../models/vote').Votes,
   Vote  = require('../models/vote').Vote;
 
 module.exports = {
+
+  index: function(req, res, next){
+
+    if (!req.query.lunch_restaurant_id) {
+      req.error('You must supply a GET param of lunch_restaurant_id')
+      return res.redirect('/')
+    }
+    Votes.forge()
+    .query({where: {lunch_restaurant_id: req.query.lunch_restaurant_id}})
+    .fetch({withRelated: ['user']})
+    .then(function(votes){
+      res.view('votes/index', {votes: votes});
+    });
+
+  },
 
   create: function(req, res, next){
 
