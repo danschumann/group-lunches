@@ -110,7 +110,7 @@
       <div class="name">tax</div>
     </div>
     <div class="food_item">
-      <div class="price"><%- (price * 1.055).toFixed(2) %></div>
+      <div class="price"><%- (fullTotal = price * 1.055).toFixed(2) %></div>
       <div class="name">total</div>
     </div>
     <% if (@lunch.get('user_id') is @req.session.user_id) or @req.locals.user.get('admin') : %>
@@ -119,7 +119,7 @@
         <div class="name">paid</div>
       </div>
       <div class="food_item">
-        <div class="price"><%- (paid - price).toFixed(2) %></div>
+        <div class="price"><%- (paid - fullTotal).toFixed(2) %></div>
         <div class="name">due</div>
       </div>
     <% end %>
