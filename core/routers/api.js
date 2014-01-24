@@ -20,4 +20,6 @@ module.exports = function(app){
   // Stuff from JS ajax
   app.post ('/restaurants/:restaurant_id/notify', authentication.user, user.load, controllers.restaurants.notify);
 
+  app.post ('/orders/:order_id', authentication.user, user.load, controllers.orders.update);
+
 };

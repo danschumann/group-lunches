@@ -1,3 +1,9 @@
+<% block 'head' : %>
+  <% if (@lunch.get('user_id') is @req.session.user_id) or @req.locals.user.get('admin') : %>
+    <script src="/javascripts/paid_updater.js"></script>
+  <% end %>
+<% end %>
+
 <% if @lunch.get('user_id') == @req.session.user_id or @req.locals.user.get('admin') : %>
   <% if @lunch.get('closed') : %>
     <% if !@lunch.get('food_arrived') : %>
@@ -51,9 +57,21 @@
   <% end %>
 
   <% price = 0 %>
+  <% paid = 0 %>
   <% @orders.each (order) => : %>
     <div class="order_item">
-      <h4><%- order.related('user').fullName() %></h4>
+      <h4>
+        <% if (@lunch.get('user_id') is @req.session.user_id) or @req.locals.user.get('admin') : %>
+          <% paid += order.get('paid') ? 0 %>
+          <input
+            class="paid_amount"
+            value="<%- order.get('paid')?.toFixed?(2) %>"
+            placeholder="paid"
+            data-id="<%- order.get('id') %>"
+          />
+        <% end %>
+        <%- order.related('user').fullName() %>
+      </h4>
 
       <% order.related('foods').each (food) => : %>
         <% price += food.get('price') %>
@@ -95,6 +113,16 @@
       <div class="price"><%- (price * 1.055).toFixed(2) %></div>
       <div class="name">total</div>
     </div>
+    <% if (@lunch.get('user_id') is @req.session.user_id) or @req.locals.user.get('admin') : %>
+      <div class="food_item">
+        <div class="price"><%- (paid).toFixed(2) %></div>
+        <div class="name">paid</div>
+      </div>
+      <div class="food_item">
+        <div class="price"><%- (paid - price).toFixed(2) %></div>
+        <div class="name">due</div>
+      </div>
+    <% end %>
   </div>
 
 </div>
