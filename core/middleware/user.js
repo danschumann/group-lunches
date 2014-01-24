@@ -16,11 +16,16 @@ module.exports = {
           return res.redirect('/');
         };
         req.locals.user = user;
+        if (user.get('banned')) {
+          req.error('You have been temporarilly banned for misuse, please try again later. ( HAHA )');
+          delete req.session.user_id;
+          return res.redirect('/');
+        }
         next();
       })
       .otherwise(function(){
         delete req.session.user_id;
-        req.session.errors.base = ['You have been logged out, please log back in'];
+        req.error('You have been logged out, please log back in');
         res.redirect('/login');
       });
   },
