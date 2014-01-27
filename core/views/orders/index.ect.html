@@ -80,7 +80,7 @@
           <div class="price"><%- food.get('price').toFixed(2) %></div>
           <div class="name">
             <strong><%- food.get('name') %></strong>
-            <% if !@lunch.get('closed') and (order.get('user_id') is @req.session.user_id or @req.locals.user.get('admin')) : %>
+            <% if (!@lunch.get('closed') and (order.get('user_id') is @req.session.user_id) or @lunch.get('user_id') is @req.session.user_id or @req.locals.user.get('admin')) : %>
               <a class="edit_link" href="/lunches/<%- @lunch.id %>/foods/<%- food.id %>">edit</a>
               <a class="edit_link" 
                 onclick="javascript: return confirm('are you sure?');" 

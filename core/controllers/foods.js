@@ -85,9 +85,16 @@ module.exports = {
 
   update: function(req, res, next){
     var price = parseFloat(('' + req.body.price).replace(/[^\d\.]/g, ''));
-    Food.forge({id: req.params.food_id}).fetch({withRelated: ['order']})
+    Food.forge({id: req.params.food_id}).fetch({withRelated: ['order', 'order.lunch']})
     .then(function(food){
-      if (food.related('order').get('user_id') !== req.session.user_id && !req.session.admin)
+      if (
+        (
+          food.related('order').related('lunch').get('closed') ||
+          food.related('order').get('user_id') !== req.session.user_id
+        ) &&
+        food.related('order').related('lunch').get('user_id') !== req.session.user_id &&
+        !req.locals.user.get('admin')
+      )
         req.error('You are not authorized to change this food item');
       else if (_.isNaN(price))
         req.error('That price does not work');
@@ -99,7 +106,8 @@ module.exports = {
         }).save();
     })
     .then(function(food){
-      return food.related('order').calculate()
+      if (food)
+        return food.related('order').calculate()
     })
     .then(function(){
       res.redirect('/lunches/' + req.params.lunch_id + '/orders');
