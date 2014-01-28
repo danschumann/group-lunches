@@ -31,7 +31,17 @@ Server = function(){
   app.use(express.json());
   app.use(express.urlencoded());
   app.use(express.cookieParser());
-  app.use(express.cookieSession({ secret: config.server.cookieSecret }));
+
+  app.use(express.cookieSession({
+    secret: config.server.cookieSecret,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+  }));
+  app.use(function(req, res, next) {
+    if ('HEAD' == req.method || 'OPTIONS' == req.method) return next();
+    // Renew session for another month
+    req.session._garbage = Date();
+    next();
+  });
 
   app.use(middleware.resolveId);
   app.use(middleware.locals);
