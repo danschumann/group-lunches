@@ -1,7 +1,11 @@
 var
-  LunchRestaurants = require('../models/lunch_restaurant').Restaurants,
-  Lunches = require('../models/lunch').Lunches,
-  Lunch  = require('../models/lunch').Lunch,
+  _                 = require('underscore'),
+  bookshelf         = require('../models/base'),
+  LunchRestaurants  = require('../models/lunch_restaurant').Restaurants,
+  Votes             = require('../models/vote').Votes,
+  Lunches           = require('../models/lunch').Lunches,
+  Lunch             = require('../models/lunch').Lunch,
+  nodefn            = require('when/node/function'),
   base;
 
 require('../lib/mysql_date_format');
@@ -22,13 +26,26 @@ base = {
       //
       // Home 
       //
-      cutoff = new Date
-      cutoff.setHours(cutoff.getHours() - 8)
-      Lunches.forge().query('where', 'created_at', '>', cutoff.toMysqlFormat())
+      cutoff = new Date;
+      cutoff.setHours(cutoff.getHours() - 8);
+      var lunches = Lunches.forge();
+
+      lunches.query('where', 'created_at', '>', cutoff.toMysqlFormat())
       .fetch({withRelated: ['restaurants', 'restaurant', 'user']})
-      .then(function(lunches){
-        console.log(lunches);
-        res.view('home', {lunches: lunches});
+      .then(function(){
+        var lunch_restaurant_ids = _.uniq(_.flatten(lunches.map(function(lunch){
+          return lunch.related('restaurants').map(function(restaurant){
+            return restaurant.pivot.id
+          });
+        })));
+        return bookshelf.knex.raw(
+          'select * from votes where user_id = ? and lunch_restaurant_id in (?)', 
+          [req.session.user_id, lunch_restaurant_ids]
+        );
+      })
+      .then(function(results){
+        console.log('coolio'.blue, results[0]);
+        res.view('home', {lunches: lunches, votes: results[0]});
       });
     } else
       res.view('base/index');

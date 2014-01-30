@@ -42,6 +42,13 @@ instanceMethods = {
   validations: {
   },
 
+  calculateVotes: function(){
+    var lr = this;
+    return this.load('votes').then(function(votes){
+      return lr.set('votes', lr.related('votes').length).save();
+    })
+  }
+
 };
 
 classMethods = {

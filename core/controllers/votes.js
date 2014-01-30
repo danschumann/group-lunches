@@ -1,4 +1,5 @@
 var
+  sequence = require('when/sequence'),
   bookshelf = require('../models/base'),
   Restaurants = require('../models/restaurant').Restaurants,
   LunchRestaurant  = require('../models/lunch_restaurant').LunchRestaurant,
@@ -44,14 +45,25 @@ module.exports = {
       // Already created
       if (vote.id) {
 
-        // HACK: We use javascript to move this error 
-        req.error('<script src="/javascripts/already_voted_error.js" data-already_voted="' + parseInt(req.body.lunch_restaurant_id) + '" ></script>');
-      } else {
-        req.notification('Successfully saved vote');
-
-        // Save everything
-        return when.map([vote.save(), lr.set('votes', lr.get('votes') + 1).save()])
+        if (req.body.unvote) {
+          req.notification('Successfully removed vote');
+          return sequence([
+            _.bind(vote.destroy, vote),
+            _.bind(lr.calculateVotes, lr)
+          ])
+        } else {
+          // HACK: We use javascript to move this error 
+          return req.error('<script src="/javascripts/already_voted_error.js" data-already_voted="' + parseInt(req.body.lunch_restaurant_id) + '" ></script>');
+        }
       }
+
+      req.notification('Successfully saved vote');
+
+      // Save everything
+      return sequence([
+        _.bind(vote.save, vote),
+        _.bind(lr.calculateVotes, lr)
+      ])
     })
     .then(function(){
 

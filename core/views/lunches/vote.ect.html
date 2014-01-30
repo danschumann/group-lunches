@@ -14,8 +14,16 @@
       <%- restaurant.get('name') %>
     </a>
     <%- restaurant.pivot.get('votes') %>
+
     <a href="/votes/?lunch_restaurant_id=<%- restaurant.pivot.id %>" style="display: none">votes list</a>
+
     <input type="hidden" name="lunch_restaurant_id" value="<%- restaurant.pivot.id %>" />
-    <input type="submit" value="vote" /> 
+
+    <% if @_.findWhere(@votes, lunch_restaurant_id: restaurant.pivot.id) : %>
+      <input type="hidden" name="unvote" value="true" /> 
+      <input class="unvote" type="submit" value="unvote" /> 
+    <% else : %>
+      <input type="submit" value="vote" /> 
+    <% end %>
   </form>
 <% end %>
