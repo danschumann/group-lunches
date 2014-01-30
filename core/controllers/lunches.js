@@ -47,15 +47,25 @@ module.exports = {
 
   show: function(req, res, next) {
 
-    var lunch;
+    var lunch, orders;
 
     Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: ['restaurant', 'restaurants']})
     .then(function(_lunch){
       lunch = _lunch;
       return Orders.forge().query({where: {lunch_id: req.params.lunch_id}}).fetch({withRelated: ['foods', 'user']});
     })
-    .then(function(orders){
-      res.view('lunches/show', {orders: orders, lunch: lunch});
+    .then(function(_orders){
+      orders = _orders;
+      var lunch_restaurant_ids = lunch.related('restaurants').map(function(restaurant){
+        return restaurant.pivot.id
+      });
+      return bookshelf.knex.raw(
+        'select * from votes where user_id = ? and lunch_restaurant_id in (?)', 
+        [req.session.user_id, lunch_restaurant_ids]
+      );
+    })
+    .then(function(results){
+      res.view('lunches/show', {orders: orders, lunch: lunch, votes: results[0]});
     });
 
   },

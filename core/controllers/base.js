@@ -44,7 +44,6 @@ base = {
         );
       })
       .then(function(results){
-        console.log('coolio'.blue, results[0]);
         res.view('home', {lunches: lunches, votes: results[0]});
       });
     } else
