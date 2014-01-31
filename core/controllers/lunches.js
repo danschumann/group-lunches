@@ -59,13 +59,15 @@ module.exports = {
       var lunch_restaurant_ids = lunch.related('restaurants').map(function(restaurant){
         return restaurant.pivot.id
       });
-      return bookshelf.knex.raw(
-        'select * from votes where user_id = ? and lunch_restaurant_id in (?)', 
-        [req.session.user_id, lunch_restaurant_ids]
-      );
+      if (lunch_restaurant_ids.length){
+        return bookshelf.knex.raw(
+          'select * from votes where user_id = ? and lunch_restaurant_id in (?)', 
+          [req.session.user_id, lunch_restaurant_ids]
+        );
+      }
     })
     .then(function(results){
-      res.view('lunches/show', {orders: orders, lunch: lunch, votes: results[0]});
+      res.view('lunches/show', {orders: orders, lunch: lunch, votes: results && results[0]});
     });
 
   },

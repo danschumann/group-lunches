@@ -38,13 +38,15 @@ base = {
             return restaurant.pivot.id
           });
         })));
-        return bookshelf.knex.raw(
-          'select * from votes where user_id = ? and lunch_restaurant_id in (?)', 
-          [req.session.user_id, lunch_restaurant_ids]
-        );
+        if (lunch_restaurant_ids.length){
+          return bookshelf.knex.raw(
+            'select * from votes where user_id = ? and lunch_restaurant_id in (?)', 
+            [req.session.user_id, lunch_restaurant_ids]
+          );
+        }
       })
       .then(function(results){
-        res.view('home', {lunches: lunches, votes: results[0]});
+        res.view('home', {lunches: lunches, votes: results && results[0]});
       });
     } else
       res.view('base/index');

@@ -19,7 +19,7 @@
 
     <input type="hidden" name="lunch_restaurant_id" value="<%- restaurant.pivot.id %>" />
 
-    <% if @_.findWhere(@votes, lunch_restaurant_id: restaurant.pivot.id) : %>
+    <% if @votes && @_.findWhere(@votes, lunch_restaurant_id: restaurant.pivot.id) : %>
       <input type="hidden" name="unvote" value="true" /> 
       <input class="unvote" type="submit" value="unvote" /> 
     <% else : %>
