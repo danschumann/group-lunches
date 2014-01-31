@@ -29,6 +29,7 @@ module.exports = {
       base: 'DC=dc,DC=com',
       admin_user: 'usern',
       admin_password: 'passw',
+      usernameField: 'mail',
       ssl: false,
     },
   }
