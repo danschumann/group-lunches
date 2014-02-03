@@ -66,6 +66,8 @@ module.exports = function(app){
 
   app.get  ('/lunches/:lunch_id/orders', authentication.user, user.load, controllers.lunches.show);
 
+  app.post ('/lunches/:lunch_id/comments', authentication.user, user.load, controllers.comments.create);
+
   app.get  ('/lunches/:lunch_id/foods/new', authentication.user, user.load, controllers.foods.edit);
   app.get  ('/lunches/:lunch_id/foods/:food_id', authentication.user, user.load, controllers.foods.edit);
   app.post ('/lunches/:lunch_id/foods/:food_id', authentication.user, user.load, controllers.foods.update);

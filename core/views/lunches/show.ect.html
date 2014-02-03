@@ -2,6 +2,7 @@
 
 <h1 class="lunch_header"><%- @lunch.get('name') %></h1>
 
+<% include 'lunches/comments.ect.html' %>
 <% if @lunch.get('restaurant_id') : %>
   <% console.log 'no'.red %>
   <% include 'orders/index.ect.html' %>

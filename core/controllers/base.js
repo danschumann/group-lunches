@@ -31,7 +31,7 @@ base = {
       var lunches = Lunches.forge();
 
       lunches.query('where', 'created_at', '>', cutoff.toMysqlFormat())
-      .fetch({withRelated: ['restaurants', 'restaurant', 'user']})
+      .fetch({withRelated: ['restaurants', 'restaurant', 'user', 'comments', 'comments.user']})
       .then(function(){
         var lunch_restaurant_ids = _.uniq(_.flatten(lunches.map(function(lunch){
           return lunch.related('restaurants').map(function(restaurant){

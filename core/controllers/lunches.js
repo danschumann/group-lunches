@@ -49,7 +49,7 @@ module.exports = {
 
     var lunch, orders;
 
-    Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: ['restaurant', 'restaurants']})
+    Lunch.forge({id: req.params.lunch_id}).fetch({withRelated: ['restaurant', 'restaurants', 'comments', 'comments.user']})
     .then(function(_lunch){
       lunch = _lunch;
       return Orders.forge().query({where: {lunch_id: req.params.lunch_id}}).fetch({withRelated: ['foods', 'user']});

@@ -45,6 +45,10 @@ instanceMethods = {
       .withPivot(['votes', 'id']);
   },
 
+  comments: function(){
+    return this.hasMany(require('./comment').Comments);
+  },
+
   users: function(){
     return this
       .belongsToMany(require('./user').Users, 'orders');

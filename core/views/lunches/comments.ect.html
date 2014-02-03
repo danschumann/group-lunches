@@ -1,0 +1,19 @@
+<script src="/javascripts/comment.js"></script>
+<div class="slop_talk">
+  <div class="comments_container">
+    <% @lunch.related('comments').each (comment) => : %>
+      <div class="comment">
+        <strong><%- comment.related('user').fullName() %></strong>
+        <div class="comment_content">
+          <%- comment.get('content') %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <form action="/lunches/<%- @lunch.id %>/comments" method="post">
+    <textarea autofocus name="content" class="make_comment" placeholder="SlopTalk"><%
+      if @req.body.content : %><%-
+        @_.escape @req.body.content
+    %><% end %></textarea>
+  </form>
+</div>
