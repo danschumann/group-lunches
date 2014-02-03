@@ -1,3 +1,4 @@
+require('coffee-script');
 var
   Server, server,
 
@@ -20,7 +21,7 @@ var
     path: join(__dirname, '/routers'),
     require: true,
   });
- 
+
 Server = function(){
 
   if (server) return server;
@@ -51,18 +52,18 @@ Server = function(){
   //
   // Compiling Assets
   //
-  
+
   //
   // Backend templates
   //   adds res.view() as an extension of res.render()
   app.use(middleware.view);
-  
+
   // Frontend -- Coffeescript files
   app.use(middleware.coffeescript({ src: __dirname + '/frontend'}));
 
   // Frontend -- Stylesheets
   app.use(middleware.stylus({ src: __dirname + '/stylesheets' }));
-  
+
   // Frontend -- Templates
   app.use(middleware.frontend_templates);
 
@@ -105,5 +106,5 @@ Server.prototype.listen = function(){
 
   return deferred.promise;
 };
-    
+
 module.exports = Server;
