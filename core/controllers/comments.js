@@ -23,7 +23,7 @@ module.exports = {
 
     comment.save()
     .then(function(){
-      res.redirect('/lunches/' + req.params.lunch_id);
+      res.redirect('back');
     });
 
   },
