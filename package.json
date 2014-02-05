@@ -44,6 +44,7 @@
     "mysql": "~2.0.0",
     "ldapjs": "~0.7.0",
     "ldapauth": "~2.2.4",
-    "ldapauth-fork": "~2.2.11"
+    "ldapauth-fork": "~2.2.11",
+    "client-sessions": "~0.6.0"
   }
 }

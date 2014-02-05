@@ -15,7 +15,7 @@ module.exports = {
 
   create: function(req, res, next){
 
-    var attributes = { name: _.escape(req.body.name), user_id: req.body.user_id }
+    var attributes = { name: _.escape(req.body.name), user_id: req.session.user_id }
 
     if (!attributes.name) attributes.name = 'untitled';
 

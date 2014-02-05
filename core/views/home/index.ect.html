@@ -12,6 +12,8 @@
       Welcome <%- @req.locals.user.get('first_name') %>,
     <% end %>
     Here's where you do the lunch thing.
+    <br />
+    Vote for as many restaurants as you like.  It won't let you vote for the same one twice.
   </div>
 
   <%- if !@lunches?.length then 'No Lunches yet' %>

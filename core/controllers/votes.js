@@ -26,7 +26,7 @@ module.exports = {
   create: function(req, res, next){
 
     var lr,
-    backURL = req.header('Referer').split('#')[0],
+    backURL = (req.header('Referer') || '/lunches/' + req.params.lunch_id).split('#')[0],
 
     vote =
       Vote.forge({user_id: req.session.user_id, lunch_restaurant_id: req.body.lunch_restaurant_id});

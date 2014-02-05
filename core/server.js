@@ -2,6 +2,7 @@ require('coffee-script');
 var
   Server, server,
 
+  sessions    = require('client-sessions'),
   express     = require('express'),
   config      = require('./lib/config-loader'),
 
@@ -33,14 +34,14 @@ Server = function(){
   app.use(express.urlencoded());
   app.use(express.cookieParser());
 
-  app.use(express.cookieSession({
+  app.use(sessions({
     secret: config.server.cookieSecret,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+    cookieName: config.server.cookieName,
+    duration: 30 * 24 * 60 * 60 * 1000,
+    activeDuration: 30 * 24 * 60 * 60 * 1000,
   }));
   app.use(function(req, res, next) {
-    if ('HEAD' == req.method || 'OPTIONS' == req.method) return next();
-    // Renew session for another month
-    req.session._garbage = Date();
+    req.session = req[config.server.cookieName];
     next();
   });
 
