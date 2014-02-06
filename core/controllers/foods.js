@@ -130,11 +130,10 @@ module.exports = {
     ]})
     .then(function(_lunch){
       lunch = _lunch;
-      if (req.params.lunch_id)
+      if (req.params.food_id)
         return Food.forge({id: req.params.food_id}).fetch();
     })
     .then(function(food){
-      console.log('heyo', food);
       res.view('foods/edit', {food: food, lunch: lunch});
     });
 
