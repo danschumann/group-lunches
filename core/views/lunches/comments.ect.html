@@ -5,7 +5,7 @@
       <div class="comment">
         <strong><%- comment.related('user').fullName() %></strong>
         <div class="comment_content">
-          <%- comment.get('content') %>
+          <%- comment.get('content').replace(/(@[\S]*)/g, '<span style="color: blue">$1</span>') %>
         </div>
       </div>
     <% end %>
